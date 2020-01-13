@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+# Secret Content
+app/config/*
+app/webapp/data/*
+
+
 # C extensions
 *.so
 
