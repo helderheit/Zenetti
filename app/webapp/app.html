@@ -2,12 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <title>Zenetti</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+
+    <title>Zenetti</title>
 
     </head>
 
     <body>
-        This is the Zenetti Webapp
+        <div id="header_bar">
+            <h3>This is the Zenetti Webapp</h3>
+        </div>
+        <div id="mirador"></div>
+
+        <script>document.write("<script type='text/javascript' src='dist/mirador.min.js?v=" + Date.now() + "'><\/script>");</script>
+        <script type="text/javascript">
+         var miradorInstance = Mirador.viewer({
+           id: 'mirador',
+           windows: [{
+             manifestId: 'https://iiif.harvardartmuseums.org/manifests/object/299843',
+             canvasId: 'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174892',
+             thumbnailNavigationPosition: 'far-bottom',
+           }],
+           manifests: {
+             "https://media.nga.gov/public/manifests/nga_highlights.json": { provider: "National Gallery of Art"},
+             "http://localhost:4000/manifests/album_01.json": { provider: "University of Regensburg"}
+           }
+         });
+        </script>
 
     </body>
 </html>
