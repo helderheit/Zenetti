@@ -5,7 +5,7 @@
   "attribution": "University of Regensburg",
   "description": "",
   "label": "First Album of Paul Zenetti",
-  "logo": "",
+  "logo": "http://localhost:4000/data/Logo/ur_logo.jpg",
   "rendering": {
     "@id": "http://localhost:4000/",
     "format": "text/html",
@@ -18,7 +18,7 @@
       "canvases":[
             {"@id":"https://iiif.bodleian.ox.ac.uk/iiif/canvas/e58b8c60-005c-4c41-a22f-07d49cb25ede.json",
               "@type":"sc:Canvas",
-              "label":"[f. 1 Krishna and his lover Radha seated face-to-face]",
+              "label":"Coming soon: Paul Zenetti",
               "width":5392,
               "height":8158,
               "images":[{"@id":"https://iiif.bodleian.ox.ac.uk/iiif/annotation/e58b8c60-005c-4c41-a22f-07d49cb25ede.json",
@@ -34,9 +34,9 @@
                                                   "profile":"http://iiif.io/api/image/2/level1.json",
                                                   "@id":"https://iiif.bodleian.ox.ac.uk/iiif/image/e58b8c60-005c-4c41-a22f-07d49cb25ede"}}}]}]}
   ],
-  "thumbnail": {"@id": "http://localhost:4000/data/Zenetti_Tageb%C3%BCcher/Album_01/ubr2008000092.tif",
+  "thumbnail": {"@id": "http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092/full/full/0/default.tif",
                 "service": {"@context": "http://iiif.io/api/image/2/context.json",
-                            "@id": "",
+                            "@id": "http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092",
                             "profile": "http://iiif.io/api/image/2/level2.json"}},
   "within": "http://localhost:4000/"
 }
