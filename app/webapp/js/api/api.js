@@ -1,5 +1,19 @@
 var API_URL_PREFIX = "api/1.0/";
 
+var tokenIntervall = setInterval(renewToken, 60*1000*8);
+function renewToken() {
+  //renew the api-token every 8 Minutes
+  if (sessionStorage.getItem("loggedIn") !== null) {
+    apiRenewToken(function(){
+      console.log("renewed token");
+    },function(){
+      apiLogout();
+      window.location="login.html";
+
+    });
+  }
+}
+
 function apiGetInfo(onSuccess, onError){
   $.ajax
   ({
@@ -17,7 +31,7 @@ function apiGetInfo(onSuccess, onError){
 function apiLogout(){
   //clears sessionStorage
   sessionStorage.clear();
-  $(".menuitem").hide();
+  window.location = "/login.html"
 }
 
 function apiLogin(username, password, onSuccess, onError){

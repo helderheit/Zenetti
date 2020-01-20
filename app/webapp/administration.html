@@ -20,13 +20,37 @@
         </script>
         <div class="page-content">
             <h2>Administration</h2>
-            <div class="user-table"></div>
+            <div class="section">
+                <div class="user-table">
+                    <span class="first-row">Username</span>
+                    <span class="first-row">Name</span>
+                    <span class="first-row">admin</span>
+                    <span class="first-row">master</span>
+                    <span class="first-row">change password</span>
+                    <span class="first-row"></span>
+                </div>
+            </div>
             <script type = text/javascript>
                 apiGetUsers(function(users){
                     console.log(users);
                     for(var i in users) {
-                        var dataItem = $("<span></span>")
-                        console.log(users[i]);
+                        var dataItem = $("<span></span>");
+                        dataItem.html(users[i].username);
+                        $(".user-table").append(dataItem);
+                        dataItem = $("<span></span>");
+                        dataItem.html(users[i].name);
+                        $(".user-table").append(dataItem);
+                        dataItem = $("<span></span>");
+                        dataItem.html(users[i].admin.toString());
+                        $(".user-table").append(dataItem);
+                        dataItem = $("<span></span>");
+                        dataItem.html(users[i].master.toString());
+                        $(".user-table").append(dataItem);
+                        dataItem = $("<span></span>");
+                        dataItem.html(users[i].change_password.toString());
+                        $(".user-table").append(dataItem);
+                        dataItem = $("<span></span>");
+                        dataItem.html("<button>Edit</button><button>Remove</button>");
                         $(".user-table").append(dataItem);
                     }
                 });

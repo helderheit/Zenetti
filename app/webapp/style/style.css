@@ -1,8 +1,15 @@
+*{
+    box-sizing: border-box;
+}
 :root{
 	--theme: #275062;
     --highlight: #CB2C57;
     --light: #fff;
     --light-accent: #ddd;
+    --medium: #bbb;
+
+    --dark-accent: #666;
+
     --dark: #000;
     font-family: 'Roboto';
 
@@ -56,5 +63,75 @@ right: 0;
     max-width: 1200px;
     margin: auto;
     margin-top: 100px;
+}
+.section{
+    border-left: 4px solid var(--theme);
 
+}
+.user-table{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    padding: 0;
+    border: 1px solid var(--light-accent);
+    border-left: none;
+
+}
+.user-table > span{
+    padding: 6px 4px;
+}
+.user-table > span.first-row{
+    font-weight: 600;
+}
+button{
+    border: 1px solid var(--light-accent);
+    border-radius: 1px;
+    padding: 4px 6px;
+    color: var(--dark-accent);
+    background-color: var(--light);
+    font-family: 'Roboto';
+    font-size: 16px;
+    margin: 2px;
+    margin-top: -4px;
+}
+button:hover{
+    color: var(--dark);
+    border-color: var(--medium);
+    cursor: pointer;
+    transition: border-color 100ms;
+}
+
+input{
+    border: 1px solid var(--light-accent);
+    border-radius: 1px;
+    padding: 4px 6px;
+    color: var(--dark-accent);
+    background-color: var(--light);
+    font-family: 'Roboto';
+    font-size: 16px;
+
+}
+
+input:hover, input:focus{
+    color: var(--dark);
+    border-color: var(--medium);
+    transition: border-color 100ms;
+}
+
+.login-box{
+    width: 300px;
+    margin:auto;
+    margin-top: 100px;
+    border-left: 4px solid var(--theme);
+}
+.login-box-inner{
+    padding: 10px;
+    border: 1px solid var(--light-accent);
+}
+
+.login-box-inner > input, .login-box-inner > button {
+    width: 100%;
+    margin: 0;
+    margin-top: 6px;
+    margin-bottom: 15px;
 }
