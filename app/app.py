@@ -3,6 +3,7 @@ from flask import Flask
 from modules.web import web_blueprint
 from modules.api.api import api_blueprint
 from modules.data import data_blueprint
+from modules.api import administration
 
 from modules.database import database
 

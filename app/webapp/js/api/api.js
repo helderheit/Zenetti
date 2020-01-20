@@ -64,3 +64,23 @@ function apiRenewToken(onSuccess,onError){
       }
   });
 }
+
+function apiGetUsers(onSuccess, onError){
+  // Gets a list of users from the api and hands it over to onSuccess Callback
+    $.ajax
+    ({
+      type: "GET",
+      url: API_URL_PREFIX+"users",
+      contentType : 'application/json',
+      async: true,
+
+      success: function(data){
+        onSuccess(data);
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}

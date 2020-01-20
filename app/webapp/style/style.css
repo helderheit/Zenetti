@@ -1,18 +1,60 @@
+:root{
+	--theme: #275062;
+    --highlight: #CB2C57;
+    --light: #fff;
+    --light-accent: #ddd;
+    --dark: #000;
+    font-family: 'Roboto';
+
+}
+
 #header_bar{
+    font-family: 'Roboto';
+    position: fixed;
+    height: 80px;
+    width: 100%;
+    background-color: var(--theme);
+    top: 0;
+    left: 0;
+    color: var(--light);
+    box-shadow: 0px 0px 10px #888;
+}
+h1{
+    float: left;
+    font-weight: 300;
+    color: var(--light);
+    padding: 0 20px;
+    text-decoration: underline;
+}
+h2{
+    font-weight: 300;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+.header-item{
+    float: right;
+    font-size: 18px;
+    color:var(--light-accent);
+    padding: 28px 10px;
+}
+.header-item:hover{
+    color: var(--light);
+    cursor: pointer;
+}
+#mirador{
 position: fixed;
-height: 8%;
-width: 100%;
-background-color: lightblue;
-top: 0;
+top: 80px;
 bottom: 0;
 left: 0;
 right: 0;
 }
 
-#mirador{
-position: fixed;
-top: 8%;
-bottom: 0;
-left: 0;
-right: 0;
+.page-content{
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 100px;
+
 }

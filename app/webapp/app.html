@@ -6,15 +6,17 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <link rel="stylesheet" type="text/css" href="style/style.css">
+    <script src="js/lib/jquery-3.3.1.min.js" type="text/javascript"></script>
 
     <title>Zenetti</title>
 
     </head>
 
     <body>
-        <div id="header_bar">
-            <h3>This is the Zenetti Webapp</h3>
-        </div>
+        <header></header>
+        <script type="text/javascript">
+            $("header").load( "templates/header_bar.html" );
+        </script>
         <div id="mirador"></div>
 
         <script>document.write("<script type='text/javascript' src='dist/mirador.min.js?v=" + Date.now() + "'><\/script>");</script>
