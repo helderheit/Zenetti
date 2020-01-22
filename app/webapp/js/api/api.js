@@ -47,7 +47,7 @@ function apiLogin(username, password, onSuccess, onError){
         sessionStorage["loggedIn"] = true;
         sessionStorage["token"] = data["token"];
         sessionStorage["username"] = username;
-        onSuccess();
+        getOwnAccountInfo(onSuccess());
 
       },
       error: onError,
@@ -57,7 +57,29 @@ function apiLogin(username, password, onSuccess, onError){
       }
   });
 }
+function getOwnAccountInfo(onSuccess){
+  //Get information about logged in user and store it in sessionStorage
+  $.ajax
+  ({
+    type: "GET",
+    url: API_URL_PREFIX+"users/"+sessionStorage["username"],
+    dataType: 'json',
+    async: true,
 
+    success: function(data){
+      sessionStorage["name"] = data["name"];
+      sessionStorage["admin"] = data["admin"];
+      sessionStorage["master"] = data["master"];
+      sessionStorage["change_password"] = data["change_password"];
+      onSuccess();
+
+    },
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader ("Authorization", "Basic " +
+                              btoa(sessionStorage["token"] + ":" + ""));
+    }
+});
+}
 function apiRenewToken(onSuccess,onError){
   // Gets a new Tokenfor the api
     $.ajax
@@ -90,6 +112,46 @@ function apiGetUsers(onSuccess, onError){
 
       success: function(data){
         onSuccess(data);
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}
+
+
+function apiAddUser(data, onSuccess, onError){
+  // Adds a user
+    $.ajax
+    ({
+      type: "POST",
+      url: API_URL_PREFIX+"users",
+      contentType : 'application/json',
+      async: true,
+      data:JSON.stringify(data),
+      success: function(){
+        onSuccess();
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}
+
+function apiRemoveUser(username, onSuccess, onError){
+  // Removes a user
+    $.ajax
+    ({
+      type: "DELETE",
+      url: API_URL_PREFIX+"users/"+username,
+      contentType : 'application/json',
+      async: true,
+      success: function(){
+        onSuccess();
       },
       error: onError,
       beforeSend: function (xhr) {

@@ -23,11 +23,11 @@
                  <div class="border">
                      <div class="editor-label">Add User</div>
                      <div class="editor-grid">
-                         <span>Username:</span><input>
-                         <span>Name:</span><input>
-                         <span>Password:</span><input>
-                         <span>Change Password:</span><div class ="checkbox"></div>
-                         <span>Admin:</span><div class ="checkbox"></div>
+                         <span>Username:</span><input id="username_in">
+                         <span>Name:</span><input id="name_in">
+                         <span>Password:</span><input id="password_in">
+                         <span>Change Password:</span><div class ="checkbox" id="change_password_in"></div>
+                         <span>Admin:</span><div class ="checkbox" id="admin_in"></div>
                      </div>
                      <div class="editor-button">
                          <button id="add_user_confirm_button">Add User</button>
@@ -38,6 +38,29 @@
              <script>
                  $("#cancel_button").on("click",function(){
                      $("#user-editor").hide();
+                 });
+                 $("#add_user_confirm_button").on("click",function(){
+                     console.log("Add User");
+                     var username= $("#username_in").val();
+                     var name = $("#name_in").val();
+                     var password = $("#password_in").val();
+                     var change_password = false;
+                     if($("#change_password_in").hasClass("checked")){
+                         change_password = true;
+                     }
+                     var admin = false;
+                     if($("#admin_in").hasClass("checked")){
+                         admin = true;
+                     }
+                     console.log(username, name, password, change_password, admin );
+                     apiAddUser({"username":username, "name":name,"password":password, "change_password":change_password,"admin":admin},
+                     function(){
+                         console.log("added user");
+                         $("#user-editor").hide();
+                         loadUserData();
+                     }, function(data){
+                        console.log(data);
+                     });
                  });
              </script>
          </div>
@@ -51,8 +74,6 @@
                         $("#add_user_button").on("click", function(){
                              $("#user-editor").show();
                             //$("#editor-background").load( "templates/user_editor.html" );
-
-
                         });
                     </script>
                 </div>
@@ -68,29 +89,88 @@
                 </div>
             </div>
             <script type = text/javascript>
-                apiGetUsers(function(users){
-                    console.log(users);
-                    for(var i in users) {
-                        var dataItem = $("<span></span>");
-                        dataItem.html(users[i].username);
-                        $(".user-table").append(dataItem);
-                        dataItem = $("<span></span>");
-                        dataItem.html(users[i].name);
-                        $(".user-table").append(dataItem);
-                        dataItem = $("<span></span>");
-                        dataItem.html(users[i].admin.toString());
-                        $(".user-table").append(dataItem);
-                        dataItem = $("<span></span>");
-                        dataItem.html(users[i].master.toString());
-                        $(".user-table").append(dataItem);
-                        dataItem = $("<span></span>");
-                        dataItem.html(users[i].change_password.toString());
-                        $(".user-table").append(dataItem);
-                        dataItem = $("<span></span>");
-                        dataItem.html("<button>Edit</button><button>Remove</button>");
-                        $(".user-table").append(dataItem);
-                    }
-                });
+                function removeUser(username){
+                    console.log("remove",username);
+                    var confirmBackground = $("<div></div>");
+                    confirmBackground.addClass("editor-background");
+
+                    var confirmBox = $("<div></div>");
+                    confirmBox.addClass("confirmation");
+                    confirmBackground.append(confirmBox);
+
+                    var confirmContent = $("<div></div>");
+                    confirmContent.addClass("border");
+                    confirmContent.html("<div class='editor-label'>Remove User</div>" +
+                        "<div class=\"editor-grid\">"+
+                        "<span>Do you really want to remove the user "+username+"?</span>"+
+                        "</div>");
+                    var confirmButtons = $("<div></div>");
+                     var confirmButton = $("<button></button>");
+                    confirmButton.html("Remove");
+                    confirmButtons.append(confirmButton);
+
+                    var cancelButton = $("<button></button>");
+                    cancelButton.html("Cancel");
+                    confirmButtons.append(cancelButton);
+                    confirmButtons.addClass("editor-button");
+                    confirmContent.append(confirmButtons);
+                    confirmBox.append(confirmContent);
+
+                    $("body").append(confirmBackground);
+                    confirmBackground.show();
+
+                    cancelButton.on("click",function(){
+                      confirmBackground.remove();
+                    });
+
+                    confirmButton.on("click", function(){
+                        apiRemoveUser(username,function(){
+                            confirmBackground.remove();
+                            loadUserData();
+                        },function () {
+                            //TODO
+                        })
+                    });
+
+                }
+
+
+                function loadUserData() {
+                    apiGetUsers(function (users) {
+                        $(".user-data-item").remove();
+                        for (var i in users) {
+                            function createDataItem() {
+                                var item = $("<span></span>");
+                                item.addClass("user-data-item");
+                                return item;
+                            }
+                            var dataItem = createDataItem();
+
+                            dataItem.html(users[i].username);
+                            $(".user-table").append(dataItem);
+                            dataItem = createDataItem();
+                            dataItem.html(users[i].name);
+                            $(".user-table").append(dataItem);
+                            dataItem = createDataItem();
+                            dataItem.html(users[i].admin.toString());
+                            $(".user-table").append(dataItem);
+                            dataItem = createDataItem();
+                            dataItem.html(users[i].master.toString());
+                            $(".user-table").append(dataItem);
+                            dataItem = createDataItem();
+                            dataItem.html(users[i].change_password.toString());
+                            $(".user-table").append(dataItem);
+                            dataItem = createDataItem();
+                            var buttons = "<button>Edit</button>"
+                            if(!users[i].master){
+                                buttons = buttons +"<button onClick='removeUser(\""+users[i].username+"\")'>Remove</button>";
+                            }
+                            dataItem.html(buttons);
+                            $(".user-table").append(dataItem);
+                        }
+                    });
+                }
+                loadUserData();
             </script>
 
         </div>

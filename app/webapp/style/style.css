@@ -212,3 +212,14 @@ input:hover, input:focus{
 .editor-button{
     text-align: right;
 }
+
+.confirmation {
+    display: block;
+    width: 50%;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 200px;
+
+    background-color: var(--light);
+    border-left: 4px solid var(--theme);
+}
