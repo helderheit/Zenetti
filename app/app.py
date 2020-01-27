@@ -1,4 +1,6 @@
 from flask import Flask
+from flask_iiif import IIIF
+from flask_restful import Api
 
 from modules.web import web_blueprint
 from modules.api.api import api_blueprint
@@ -17,6 +19,10 @@ app.register_blueprint(api_blueprint, url_prefix=api_url_prefix)
 #load functions serving the webapp
 app.register_blueprint(web_blueprint)
 
+##IIIF API
+ext = IIIF(app=app)
+api = Api(app=app)
+ext.init_restful(api)
 
 #load functions serving the images
 app.register_blueprint(data_blueprint)

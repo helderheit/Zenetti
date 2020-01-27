@@ -19,11 +19,18 @@
             <input type="password" class="text-input" id ="password">
             <button class="login-button" id="login">Login</button>
              <script type="text/javascript">
-                $("#login").on("click",function(){
+                 function login(){
                     apiLogin($("#username").val(),$("#password").val(), function(){
                         window.location="/";
                     })
-                }) ;
+                 }
+                $("#login").on("click",function(){
+                   login();
+                });
+                $("#password").keypress(function (e) {
+                    if (e.which == 13) {
+                        login();
+                    }});
              </script>
         </div>
     </div>
