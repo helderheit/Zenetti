@@ -1,0 +1,225 @@
+*{
+    box-sizing: border-box;
+}
+:root{
+	--theme: #275062;
+    --highlight: #CB2C57;
+    --light: #fff;
+    --light-accent: #ddd;
+    --medium: #bbb;
+
+    --dark-accent: #666;
+
+    --dark: #000;
+    font-family: 'Roboto';
+
+}
+
+#header_bar{
+    font-family: 'Roboto';
+    position: fixed;
+    height: 80px;
+    width: 100%;
+    background-color: var(--theme);
+    top: 0;
+    left: 0;
+    color: var(--light);
+    box-shadow: 0px 0px 10px #888;
+}
+.header-item > button {
+    margin-top: -4px;
+}
+h1{
+    float: left;
+    font-weight: 300;
+    color: var(--light);
+    padding: 0 20px;
+    text-decoration: underline;
+}
+h2{
+    font-weight: 300;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+.header-item{
+    float: right;
+    font-size: 18px;
+    color:var(--light-accent);
+    padding: 28px 10px;
+}
+.header-item:hover{
+    color: var(--light);
+    cursor: pointer;
+}
+#mirador{
+position: fixed;
+top: 80px;
+bottom: 0;
+left: 0;
+right: 0;
+}
+
+.page-content{
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 100px;
+}
+.section{
+    border-left: 4px solid var(--theme);
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.border {
+        border: 1px solid var(--light-accent);
+        border-left: none;
+        padding: 4px;
+}
+
+.user-table{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    padding: 0;
+}
+.user-table > span{
+    padding: 6px 4px;
+}
+.user-table > span.first-row{
+    font-weight: 600;
+}
+
+.user-table > span > button{
+    margin-top: -4px;
+}
+
+button{
+    border: 1px solid var(--light-accent);
+    border-radius: 1px;
+    padding: 4px 6px;
+    color: var(--dark-accent);
+    background-color: var(--light);
+    font-family: 'Roboto';
+    font-size: 16px;
+    margin: 2px;
+}
+button:hover{
+    color: var(--dark);
+    border-color: var(--medium);
+    cursor: pointer;
+    transition: border-color 100ms;
+}
+
+input{
+    border: 1px solid var(--light-accent);
+    border-radius: 1px;
+    padding: 4px 6px;
+    color: var(--dark-accent);
+    background-color: var(--light);
+    font-family: 'Roboto';
+    font-size: 16px;
+    height: 30px;
+
+}
+
+input:hover, input:focus{
+    color: var(--dark);
+    border-color: var(--medium);
+    transition: border-color 100ms;
+}
+.checkbox{
+    width: 30px;
+    height: 30px;
+    border-radius: 1px;
+    border: 1px solid var(--light-accent);
+    margin: auto;
+
+}
+.checkbox:hover{
+    cursor: pointer;
+    border-color: var(--medium);
+}
+ .checked {
+    background-image: radial-gradient(var(--medium) 40%, transparent 40%);
+    background-position: 0 0;
+    background-size: 28px 28px;
+}
+ .checked:hover{
+    background-image: radial-gradient(var(--dark-accent) 40%, transparent 40%);
+
+ }
+.login-box{
+    width: 300px;
+    margin:auto;
+    margin-top: 100px;
+    border-left: 4px solid var(--theme);
+}
+.login-box-inner{
+    padding: 10px;
+    border: 1px solid var(--light-accent);
+}
+
+.login-box-inner > input, .login-box-inner > button {
+    width: 100%;
+    margin: 0;
+    margin-top: 6px;
+    margin-bottom: 15px;
+}
+.toolbar:only-child{
+    text-align: right;
+}
+
+/*User Editor*/
+.editor-background{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.editor {
+    display: block;
+    width: 50%;
+    margin: auto;
+    margin-top: 200px;
+
+    background-color: var(--light);
+    border-left: 4px solid var(--theme);
+}
+.editor-grid{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    margin: 10px;
+}
+.editor-grid > span{
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.editor-label{
+    font-weight: 400;
+    font-size: 20px;
+    margin: 10px;
+    font-weight: 300;
+}
+
+.editor-button{
+    text-align: right;
+}
+
+.confirmation {
+    display: block;
+    width: 50%;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 200px;
+
+    background-color: var(--light);
+    border-left: 4px solid var(--theme);
+}
