@@ -16,6 +16,10 @@
 
 A **Collection** manages associated **Items** an provides accumulated rights-managment.
 
+
+
+### Collection Object
+
 ```json
 {
     "id": [String], // Collection id
@@ -31,7 +35,7 @@ A **Collection** manages associated **Items** an provides accumulated rights-man
 }
 ```
 
-
+### Basic Functions
 
 ## Item
 
