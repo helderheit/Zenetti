@@ -23,7 +23,7 @@ A **Collection** manages associated **Items** an provides accumulated rights-man
 ```json
 {
     "id": [String], // Collection id
-    "proto": "item", 
+    "proto": "collection", 
     "owner": [Username], // Owner of the Collection, full rights
     "images": {}, // key-value list of page-number and refence to Image-Object
     "meta": { //Metadata
@@ -85,6 +85,10 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 > TODO
 
+#### Update Metadata
+
+> TODO
+
 ----
 
 ### Rights-Managment
@@ -122,5 +126,13 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 
 #### Update Order
+
+> TODO
+
+----
+
+### IIIF Functions
+
+#### Get Manifest
 
 > TODO

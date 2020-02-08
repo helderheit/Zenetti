@@ -15,7 +15,7 @@ server = None
 USER_DB_NAME = "zenetti_users"
 DATA_DB_NAME = "zenetti_data"
 
-database_names = [USER_DB_NAME]
+database_names = [USER_DB_NAME, DATA_DB_NAME]
 
 database_url = "http://127.0.0.1:5984"
 

@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 :root{
-	--theme: #275062;
+	--theme: #097768;
     --highlight: #CB2C57;
     --light: #fff;
     --light-accent: #ddd;
@@ -65,7 +65,7 @@ right: 0;
     width: 80%;
     max-width: 1200px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 150px;
 }
 .section{
     border-left: 4px solid var(--theme);
@@ -221,5 +221,42 @@ input:hover, input:focus{
     margin-top: 200px;
 
     background-color: var(--light);
+    border-left: 4px solid var(--theme);
+}
+
+.toolbar{
+    position: fixed;
+    left: 0;
+    top: 80px;
+    background-color: white;
+    width: 100%;
+    border-bottom: 1px solid var(--light-accent);
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.toolbar-content{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+.toolbar .toolbar-content button{
+    float: right;
+}
+
+
+.toolbar .toolbar-content span{
+    display: inline-block;
+    height: 40px;
+    padding: 10px;
+}
+
+.cards{
+    width: 100%
+    max-width: 1200px;
+    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+}
+
+.card{
     border-left: 4px solid var(--theme);
 }

@@ -43,5 +43,3 @@ Returns information for an image in IIIF-style.
 
 
 
-
-
