@@ -53,7 +53,7 @@ a {
     color: var(--light);
     cursor: pointer;
 }
-#mirador{
+#viewer{
 position: fixed;
 top: 80px;
 bottom: 0;

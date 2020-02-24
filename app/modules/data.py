@@ -22,6 +22,6 @@ def get_image(collection, item, uuid, region, size, rotation, quality):
 
     return send_file(image.serve(), mimetype='image/jpeg')
 
-@data_blueprint.route("/data/<collection>/<item>/<uuid>/info.json")
-def get_image_info(collection, item, uuid):
-    pass
+#@data_blueprint.route("/data/<collection>/<item>/<uuid>/info.json")
+#def get_image_info(collection, item, uuid):
+#    pass
