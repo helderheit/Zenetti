@@ -25,7 +25,7 @@ A **Collection** manages associated **Items** an provides accumulated rights-man
     "id": [String], // Collection id
     "proto": "collection", 
     "owner": [Username], // Owner of the Collection, full rights
-    "images": {}, // key-value list of page-number and refence to Image-Object
+    "items": [], //List of items-ids 
     "meta": { //Metadata
         "attribution": [String], //Institution
         "logo": [String], //Url to an image-file
@@ -36,6 +36,18 @@ A **Collection** manages associated **Items** an provides accumulated rights-man
 ```
 
 ### Basic Functions
+
+#### Get Collection
+
+> [GET] api/1.0/collections
+
+#### Get Collection
+
+>[TODO]
+
+#### Add Collection
+
+>[POST] api/1.0/collections
 
 ## Item
 
@@ -71,19 +83,15 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 #### Get Item
 
-> #### TODO
-
-
+> [GET] api/1.0/item/`item_id`
 
 #### Add Item
 
-> TODO
-
-
+> [GET] api/1.0/item
 
 #### Remove Item
 
-> TODO
+> [DELETE] api/1.0/item/`item_id`
 
 #### Update Metadata
 
@@ -97,13 +105,9 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 >TODO
 
-
-
 #### Add Contributor
 
 > TODO
-
-
 
 #### Remove Contributor
 
@@ -117,22 +121,11 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 > TODO
 
-
-
 #### Remove Image
 
 >TODO
-
-
 
 #### Update Order
 
 > TODO
 
-----
-
-### IIIF Functions
-
-#### Get Manifest
-
-> TODO

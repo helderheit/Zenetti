@@ -22,7 +22,7 @@ def get_api_info():
     """
         return information about the api and the server
     """
-    res = {"zenetti":"api","version":"1.0"}
+    res = {"zenetti": "api", "version": "1.0"}
     return jsonify(res)
 
 
@@ -53,7 +53,7 @@ def verify_password(username_or_token, password):
 
 
 class User:
-    #class representing a user of the RESTfull-API
+    # class representing a user of the RESTfull-API
     username = None
     name = None
     password_hash = None
@@ -96,3 +96,10 @@ class User:
             return None
         username = data["username"]
         return username
+
+
+def check_attributes(data, attributes):
+    for attribute in attributes:
+        if attribute not in data:
+            return {"error": "Missing field " + attribute}
+    return None

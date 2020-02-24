@@ -1,0 +1,80 @@
+ <!--Collection Editor for adding and updating Collections-->
+        <div class="editor-background" id="collection-editor">
+             <div class="editor">
+                 <div class="border">
+                     <div class="editor-label">Collection</div>
+                     <div class="editor-grid">
+                         <span>Label:</span><input id="label-in">
+                         <span>Description:</span><textarea id="description-in"></textarea>
+                         <span>Attribution:</span><input id="attribution-in">
+                         <span>Logo-Url:</span><input id="logo-url-in">
+                     </div>
+                     <div class="editor-button">
+                         <button id="save-collection-button">Save</button>
+                         <button id="cancel-button">Cancel</button>
+                     </div>
+                 </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+             var collectionId = "%collection-editor-id%";
+
+             //Cancel Action
+             $("#cancel-button").on("click",function(){
+                 $("#collection-editor").remove();
+             });
+
+            //Save Action
+            $("#save-collection-button").on("click",function(){
+                if(collectionId ==="") {
+                    //Create a new collection
+                    let label = $("#label-in").val();
+                    let description = $("#description-in").val();
+
+                    let attribution = $("#attribution-in").val();
+                    let logoUrl = $("#logo-url-in").val();
+
+                    apiAddCollection({
+                            "label": label,
+                            "description": description,
+                            "attribution": attribution,
+                            "logo": logoUrl
+                        },
+                        function () {
+                            $("#collection-editor").remove();
+                            updateCollections();
+                        },
+                        function () {
+                        })
+                }else{
+                    /*
+                    let title = $("#title-in").val();
+                    let description = $("#description-in").val();
+
+                    let status = $("#status-in option:selected").text();
+                    let budget = $("#budget-in").val();
+                    let projectFolder = $("#project-folder-in").val();
+                    let clientId = clientIds[selectedClient];
+                    apiUpdateProject(projectId,{
+                            "title": title,
+                            "description": description,
+                            "client-id": clientId,
+                            "budget": budget,
+                            "project-folder": projectFolder,
+                            "status": status
+                        },
+                        function () {
+                            $("#project-editor").remove();
+                            updateProjects();
+                        },
+                        function () {
+                        })
+
+                     */
+                }
+
+
+            });
+
+        </script>

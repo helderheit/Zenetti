@@ -19,7 +19,7 @@ This workflow offers an non destructive way to crop into a bookpage contained in
 + - - - - - - - - +
 ```
 
-
+## IIIF Methods
 
 ### Get image
 
@@ -27,13 +27,9 @@ This workflow offers an non destructive way to crop into a bookpage contained in
 
 Returns an image or a region of an image with applied IIIF workflow.
 
-
-
 #### Notes:
 
 Use `region` = **full** to get the whole image
-
-
 
 ### Get image info
 
@@ -41,5 +37,8 @@ Use `region` = **full** to get the whole image
 
 Returns information for an image in IIIF-style.
 
+### Get manifest
 
+> [GET] api/1.0/`collection`/ `item_id`/manifest.json
 
+Returns a IIIF manifest.

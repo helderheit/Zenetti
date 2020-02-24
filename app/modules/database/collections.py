@@ -58,3 +58,31 @@ def remove_item(item_id):
 
 def update_metadata(item_id, metadata):
     pass
+
+
+def get_collections():
+    # TODO replace with CouchDB view
+    collections = []
+    for item in database.server[database.DATA_DB_NAME]:
+        data = database.server[database.DATA_DB_NAME][item]
+        if data["proto"] == "collection":
+            collections.append(data)
+    return collections
+
+
+def add_collection(label, description, attribution, logo):
+    data_id = str(uuid.uuid4())
+    data = {
+        "_id": data_id,
+        "proto": "collection",
+        "owner": "master",
+        "items": [],
+        "meta": {
+            "attribution": attribution,
+            "logo": logo,
+            "label": label,
+            "description": description
+        }
+    }
+    database.server[database.DATA_DB_NAME][data_id] = data
+    return database.server[database.DATA_DB_NAME][data_id]

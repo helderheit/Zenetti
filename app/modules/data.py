@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""methods serving webapp"""
+"""methods serving the IIIF api"""
 from flask import Blueprint, send_from_directory, send_file
 from flask_iiif.api import IIIFImageAPIWrapper
 
@@ -7,7 +7,6 @@ data_blueprint = Blueprint("data", __name__)
 
 
 @data_blueprint.route("/data/<collection>/<item>/<uuid>/<region>/<size>/<rotation>/<quality>", methods=["GET"])
-
 def get_image(collection, item, uuid, region, size, rotation, quality):
 
     quality = quality.replace(".jpg","")
@@ -22,3 +21,7 @@ def get_image(collection, item, uuid, region, size, rotation, quality):
     )
 
     return send_file(image.serve(), mimetype='image/jpeg')
+
+@data_blueprint.route("/data/<collection>/<item>/<uuid>/info.json")
+def get_image_info(collection, item, uuid):
+    pass
