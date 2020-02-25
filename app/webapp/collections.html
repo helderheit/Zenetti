@@ -54,6 +54,7 @@
                 apiGetCollections(function (collections) {
                     for(var collections_i in collections) {
                         var item = template;
+                        item = replaceParameter(item, "%collection-id%",collections[collections_i]["_id"]);
                         item = replaceParameter(item, "%collection-label%",collections[collections_i]["meta"]["label"]);
                         item = replaceParameter(item, "%collection-description%",collections[collections_i]["meta"]["description"]);
                         item = replaceParameter(item, "%collection-attribution%",collections[collections_i]["meta"]["attribution"]);

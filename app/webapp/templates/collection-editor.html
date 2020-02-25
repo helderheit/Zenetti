@@ -19,6 +19,18 @@
 
         <script type="text/javascript">
              var collectionId = "%collection-editor-id%";
+             //Load data if collectionId is not empty
+             if(collectionId !==""){
+                 apiGetCollection(collectionId,function (collection){
+                     $("#label-in").val(collection["meta"]["label"]);
+                     $("#description-in").val(collection["meta"]["description"]);
+                     $("#attribution-in").val(collection["meta"]["attribution"]);
+                     $("#logo-url-in").val(collection["meta"]["logo"]);
+                 }, function () {
+
+                 });
+             }
+
 
              //Cancel Action
              $("#cancel-button").on("click",function(){
@@ -27,13 +39,14 @@
 
             //Save Action
             $("#save-collection-button").on("click",function(){
+                let label = $("#label-in").val();
+                let description = $("#description-in").val();
+
+                let attribution = $("#attribution-in").val();
+                let logoUrl = $("#logo-url-in").val();
+
                 if(collectionId ==="") {
                     //Create a new collection
-                    let label = $("#label-in").val();
-                    let description = $("#description-in").val();
-
-                    let attribution = $("#attribution-in").val();
-                    let logoUrl = $("#logo-url-in").val();
 
                     apiAddCollection({
                             "label": label,
@@ -48,30 +61,18 @@
                         function () {
                         })
                 }else{
-                    /*
-                    let title = $("#title-in").val();
-                    let description = $("#description-in").val();
-
-                    let status = $("#status-in option:selected").text();
-                    let budget = $("#budget-in").val();
-                    let projectFolder = $("#project-folder-in").val();
-                    let clientId = clientIds[selectedClient];
-                    apiUpdateProject(projectId,{
-                            "title": title,
+                     apiUpdateCollection(collectionId,{
+                            "label": label,
                             "description": description,
-                            "client-id": clientId,
-                            "budget": budget,
-                            "project-folder": projectFolder,
-                            "status": status
+                            "attribution": attribution,
+                            "logo": logoUrl
                         },
                         function () {
-                            $("#project-editor").remove();
-                            updateProjects();
+                            $("#collection-editor").remove();
+                            updateCollections();
                         },
                         function () {
                         })
-
-                     */
                 }
 
 

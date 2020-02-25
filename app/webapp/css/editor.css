@@ -6,16 +6,24 @@
     height: 100%;
     z-index: 1000;
     background-color: rgba(0,0,0,0.2);
+    overflow-y: auto;
 }
 
 .editor {
     display: block;
     width: 50%;
+    min-width: 800px;
     margin: auto;
-    margin-top: 200px;
+    margin-top: 150px;
+    margin-bottom: 150px;
 
     background-color: var(--light);
     border-left: 4px solid var(--theme);
+}
+.editor > .border{
+    padding: 10px;
+    width: 100%;
+
 }
 .editor-grid{
     display: grid;
@@ -29,11 +37,22 @@
 }
 .editor-label{
     font-weight: 400;
-    font-size: 20px;
+    font-size: 22px;
     margin: 10px;
     font-weight: 300;
 }
 
 .editor-button{
     text-align: right;
+}
+
+.confirmation {
+    display: block;
+    width: 50%;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 200px;
+
+    background-color: var(--light);
+    border-left: 4px solid var(--theme);
 }

@@ -70,6 +70,14 @@ def get_collections():
     return collections
 
 
+def get_collection(collection_id):
+    data = database.server[database.DATA_DB_NAME][collection_id]
+    if "proto" in data:
+        if data["proto"] == "collection":
+            return data
+    return None
+
+
 def add_collection(label, description, attribution, logo):
     data_id = str(uuid.uuid4())
     data = {
@@ -86,3 +94,36 @@ def add_collection(label, description, attribution, logo):
     }
     database.server[database.DATA_DB_NAME][data_id] = data
     return database.server[database.DATA_DB_NAME][data_id]
+
+
+def remove_collection(collection_id):
+    """remove a collection from the database,return True on success"""
+    try:
+        data = database.server[database.DATA_DB_NAME][collection_id]
+        if data:
+            if "proto" in data:
+                if data["proto"] == "collection":
+                    del database.server[database.DATA_DB_NAME][collection_id]
+                    print("Removed collection " + collection_id + " from database")
+                    return True
+        print("Could not remove collection " + collection_id + " from database")
+        return False
+    except Exception as e:
+        print("Could not remove collection " + collection_id + ": " + str(e))
+        return False
+
+
+def update_collection(collection_id, label, description, attribution, logo):
+    data = database.server[database.DATA_DB_NAME][collection_id]
+    if data:
+        if "proto" in data:
+            if data["proto"] == "collection":
+                data["meta"]["label"] = label
+                data["meta"]["description"] = description
+                data["meta"]["attribution"] = attribution
+                data["meta"]["logo"] = logo
+
+                database.server[database.DATA_DB_NAME][collection_id] = data
+
+                return database.server[database.DATA_DB_NAME][collection_id]
+    return None
