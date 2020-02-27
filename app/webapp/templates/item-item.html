@@ -1,7 +1,7 @@
 <div class="card">
     <div class="border">
         <div class="collection-header">
-            <span class="item-label"><a href="collection.html?id=%item-id%" id="item-label-%item-id%"></a></span>
+            <span class="item-label"><a href="item.html?id=%item-id%" id="item-label-%item-id%"></a></span>
         <button id="remove-item-%item-id%">Remove</button>
         <button id="edit-item-%item-id%">Edit</button>
         <button id="upload-images-%item-id%">Upload Images</button>
@@ -10,7 +10,7 @@
         </div>
         <div class="item-description" id="item-description-%item-id%"></div>
         <div class="item-number" id="item-number-%item-id%">n/a Images</div>
-        <div class="item-logo"><img src="",id="item-logo-%item-id%"></div>
+        <div class="item-logo"><img src="" id="item-logo-%item-id%"></div>
         <div class="item-attribution" id="item-attribution-%item-id%"></div>
         <div class="item-owner-label" id="item-owner-%item-id%">&#x1F464;</div> <div class="item-owner"></div>
     </div>
@@ -20,14 +20,14 @@
         let itemId = "%item-id%";
         //load Data
         apiGetItem(itemId, function (item) {
-            $("#item-label-" + itemId).html(item["meta"]["label"])
-            $("#item-description-" + itemId).html(item["meta"]["description"])
-            $("#item-attribution-" + itemId).html(item["meta"]["attribution"])
-            $("#item-logo-" + itemId).html(item["meta"]["logo"])
+            $("#item-label-" + itemId).html(item["meta"]["label"]);
+            $("#item-description-" + itemId).html(item["meta"]["description"]);
+            $("#item-attribution-" + itemId).html(item["meta"]["attribution"]);
+            $("#item-logo-" + itemId).attr("src",(item["meta"]["logo"]));
         }, function () {
 
         });
-    }
+    };
     updateFunctions["%item-id%"]();
 
 

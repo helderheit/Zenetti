@@ -57,3 +57,25 @@ def remove_item(collection_id, item_id):
         return jsonify({"ok": "Removed item " + item_id}), 200
     else:
         return jsonify({"error": "Could not remove item " + item_id}), 409
+
+
+@api.api_blueprint.route("items/<item_id>", methods=["PUT"])
+def update_item(item_id):
+    """update an item"""
+
+    data = request.json
+    attributes = ["label", "description", "attribution", "logo"]
+    attribute_missing = check_attributes(data, attributes)
+    if attribute_missing:
+        return jsonify(attribute_missing), 422
+
+    success = items.update_metadata(item_id,{
+                                            "label": data["label"],
+                                            "description": data["description"],
+                                            "attribution": data["attribution"],
+                                            "logo": data["logo"]
+                                        },)
+    if success:
+        return jsonify(success), 200
+    else:
+        return jsonify({"error": "Could not update item " + item_id}), 409

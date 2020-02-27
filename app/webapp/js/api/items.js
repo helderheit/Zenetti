@@ -55,3 +55,23 @@ function apiRemoveItem(collectionId, itemId, onSuccess, onError){
       }
   });
 }
+
+function apiUpdateItem(itemId, data, onSuccess, onError){
+  // Update a collection
+    $.ajax
+    ({
+      type: "PUT",
+      url: API_URL_PREFIX+"items/"+itemId,
+      contentType : 'application/json',
+      async: true,
+      data:JSON.stringify(data),
+      success: function(){
+        onSuccess();
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}

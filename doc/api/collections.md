@@ -97,9 +97,9 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 > [DELETE] api/1.0/item/`collection_id`/`item_id`
 
-#### Update Metadata
+#### Update Item
 
-> TODO
+> [PUT] api/1.0/item/`item_id`
 
 ----
 

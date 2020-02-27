@@ -73,4 +73,12 @@ def remove_item(item_id):
 
 
 def update_metadata(item_id, metadata):
-    pass
+    data = database.server[database.DATA_DB_NAME][item_id]
+    if data:
+        if "proto" in data:
+            if data["proto"] == "item":
+                data["meta"] = metadata
+                database.server[database.DATA_DB_NAME][item_id] = data
+                return database.server[database.DATA_DB_NAME][item_id]
+    return None
+
