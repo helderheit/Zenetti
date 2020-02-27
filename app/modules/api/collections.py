@@ -6,17 +6,6 @@ from modules.database import collections
 from modules.api.api import check_attributes
 
 
-@api.api_blueprint.route("items/<item_id>", methods=["GET"])
-def get_item(item_id):
-    #TODO
-    pass
-
-@api.api_blueprint.route("items", methods=["POST"])
-def add_item():
-    #TODO
-    pass
-
-
 @api.api_blueprint.route("collections/<collection_id>", methods=["GET"])
 def get_collection(collection_id):
     """get a collection from the database"""
@@ -29,7 +18,7 @@ def get_collection(collection_id):
 
 @api.api_blueprint.route("collections", methods=["POST"])
 def add_collection():
-    """adds a project to the database"""
+    """adds a collection to the database"""
     data = request.json
     attributes = ["label", "description", "attribution", "logo"]
     attribute_missing = check_attributes(data, attributes)
@@ -37,22 +26,24 @@ def add_collection():
         return jsonify(attribute_missing), 422
 
     success = collections.add_collection(data["label"],
-                                   data["description"],
-                                   data["attribution"],
-                                   data["logo"])
+                                         data["description"],
+                                         data["attribution"],
+                                         data["logo"])
     if success:
         return jsonify(success), 200
     else:
         return jsonify({"error": "Could not add collection"}), 409
 
+
 @api.api_blueprint.route("collections", methods=["GET"])
-def get_projects():
+def get_collections():
     """get a list of collections from the database"""
     data = collections.get_collections()
     if data:
         return jsonify(data), 200
     else:
-        return jsonify({"error": "Could get projects"}), 409
+        return jsonify({"error": "Could get collections"}), 409
+
 
 @api.api_blueprint.route("collections/<collection_id>", methods=["DELETE"])
 def remove_collection(collection_id):
@@ -62,6 +53,7 @@ def remove_collection(collection_id):
         return jsonify({"ok": "Removed collection " + collection_id}), 200
     else:
         return jsonify({"error": "Could not remove collection " + collection_id}), 409
+
 
 @api.api_blueprint.route("collections/<collection_id>", methods=["PUT"])
 def update_collection(collection_id):
@@ -74,13 +66,12 @@ def update_collection(collection_id):
         return jsonify(attribute_missing), 422
 
     success = collections.update_collection(collection_id,
-                                      data["label"],
-                                      data["description"],
-                                      data["attribution"],
-                                      data["logo"],
-                                    )
+                                            data["label"],
+                                            data["description"],
+                                            data["attribution"],
+                                            data["logo"],
+                                            )
     if success:
         return jsonify(success), 200
     else:
         return jsonify({"error": "Could not update collection " + collection_id}), 409
-

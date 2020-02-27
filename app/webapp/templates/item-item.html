@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="border">
+        <div class="collection-header">
+            <span class="item-label"><a href="collection.html?id=%item-id%" id="item-label-%item-id%"></a></span>
+        <button id="remove-item-%item-id%">Remove</button>
+        <button id="edit-item-%item-id%">Edit</button>
+        <button id="upload-images-%item-id%">Upload Images</button>
+
+
+        </div>
+        <div class="item-description" id="item-description-%item-id%"></div>
+        <div class="item-number" id="item-number-%item-id%">n/a Images</div>
+        <div class="item-logo"><img src="",id="item-logo-%item-id%"></div>
+        <div class="item-attribution" id="item-attribution-%item-id%"></div>
+        <div class="item-owner-label" id="item-owner-%item-id%">&#x1F464;</div> <div class="item-owner"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    updateFunctions["%item-id%"] = function() {
+        let itemId = "%item-id%";
+        //load Data
+        apiGetItem(itemId, function (item) {
+            $("#item-label-" + itemId).html(item["meta"]["label"])
+            $("#item-description-" + itemId).html(item["meta"]["description"])
+            $("#item-attribution-" + itemId).html(item["meta"]["attribution"])
+            $("#item-logo-" + itemId).html(item["meta"]["logo"])
+        }, function () {
+
+        });
+    }
+    updateFunctions["%item-id%"]();
+
+
+
+
+    $("#remove-item-%item-id%").on("click",function(){
+        loadTemplate("templates/confirm.html", function (template) {
+
+            template= replaceParameter(template,"%confirm-id%", "%item-id%");
+            template = replaceParameter(template,"%confirm-title%", "Remove item");
+            template = replaceParameter(template,"%confirm-text%", "Do you really want to remove the item?" +
+                "(All included Images will be deleted)");
+            template = replaceParameter(template,"%confirm-confirm%", "Remove");
+            template = replaceParameter(template,"%confirm-cancel%", "Cancel");
+            $("body").append(template);
+
+            $("#confirm-button-%item-id%").on("click",function(){
+               apiRemoveItem("%item-collection-id%","%item-id%", function(){
+                   $(".confirm-background").remove();
+                   update();
+               }, function(){});
+            });
+
+        });
+    });
+    $("#edit-item-%item-id%").on("click",function(){
+        loadTemplate("templates/item-editor.html", function (template) {
+            template = replaceParameter(template,"%item-editor-id%","%item-id%");
+            $("body").append(template);
+        });
+    });
+
+</script>

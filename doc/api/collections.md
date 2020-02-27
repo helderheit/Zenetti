@@ -22,7 +22,7 @@ A **Collection** manages associated **Items** an provides accumulated rights-man
 
 ```json
 {
-    "id": [String], // Collection id
+    "_id": [String], // Collection id
     "proto": "collection", 
     "owner": [Username], // Owner of the Collection, full rights
     "items": [], //List of items-ids 
@@ -43,11 +43,15 @@ A **Collection** manages associated **Items** an provides accumulated rights-man
 
 #### Get Collection
 
->[TODO]
+>[GET] api/1.0/collections/`colletion_id`
 
 #### Add Collection
 
 >[POST] api/1.0/collections
+
+#### Update Collection
+
+>[PUT] api/1.0/collections/`collection_id`
 
 ## Item
 
@@ -59,7 +63,7 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 ```json
 {
-    "id": [String], // Item id
+    "_id": [String], // Item id
     "proto": "item", 
     "owner": [String], // Username of the owner of the Item, full rights
     "read": [], // List of Usernames with read permission
@@ -87,11 +91,11 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 #### Add Item
 
-> [GET] api/1.0/item
+> [GET] api/1.0/item/`collection_id`
 
 #### Remove Item
 
-> [DELETE] api/1.0/item/`item_id`
+> [DELETE] api/1.0/item/`collection_id`/`item_id`
 
 #### Update Metadata
 
@@ -115,17 +119,54 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 ----
 
-### Images
+## Image
+
+### The image Object
+
+```json
+{
+    "_id": [String], // Image id
+    "file-name": [String],
+    "file-extension": [String],
+    "path": [String], //full path to th image file in the data directory
+    "proto": "image", 
+    "owner": [String], // Username of the owner of the image, full rights
+    "meta": { //Metadata
+        "width": [Integer]
+        "height": [Integer]
+    	"crop": {
+            "crop-width": [Integer]
+            "crop-height": [Integer]
+            "crop-x": [Integer],
+            "crop-y": [Integer],
+            "rotation": [Float]
+		}
+    },
+}
+```
+
+
+
+### Basic Functions
+
+#### Get Image
+
+> [GET] api/1.0/images/`image_id`
 
 #### Add Image
 
-> TODO
+> [POST] api/1.0/images
 
 #### Remove Image
 
 >TODO
 
-#### Update Order
+#### Update Image
 
 > TODO
 
+#### Update Crop
+
+
+
+> TODO

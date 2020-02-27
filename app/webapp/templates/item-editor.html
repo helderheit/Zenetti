@@ -1,8 +1,8 @@
- <!--Collection Editor for adding and updating Collections-->
-        <div class="editor-background" id="collection-editor">
+ <!--Collection Editor for adding and updating Items-->
+        <div class="editor-background" id="item-editor">
              <div class="editor">
                  <div class="border">
-                     <div class="editor-label">Collection</div>
+                     <div class="editor-label">Item</div>
                      <div class="editor-grid">
                          <span>Label:</span><input id="label-in">
                          <span>Description:</span><textarea id="description-in"></textarea>
@@ -10,7 +10,7 @@
                          <span>Logo-Url:</span><input id="logo-url-in">
                      </div>
                      <div class="editor-button">
-                         <button id="save-collection-button">Save</button>
+                         <button id="save-item-button">Save</button>
                          <button id="cancel-button">Cancel</button>
                      </div>
                  </div>
@@ -18,14 +18,14 @@
         </div>
 
         <script type="text/javascript">
-             var collectionEditorId = "%collection-editor-id%";
-             //Load data if collectionEditorId is not empty
-             if(collectionEditorId !==""){
-                 apiGetCollection(collectionEditorId,function (collection){
-                     $("#label-in").val(collection["meta"]["label"]);
-                     $("#description-in").val(collection["meta"]["description"]);
-                     $("#attribution-in").val(collection["meta"]["attribution"]);
-                     $("#logo-url-in").val(collection["meta"]["logo"]);
+             var itemEditorId = "%item-editor-id%";
+             //Load data if itemEditorId is not empty
+             if(itemEditorId !==""){
+                 apiGetItem(itemEditorId,function (item){
+                     $("#label-in").val(item["meta"]["label"]);
+                     $("#description-in").val(item["meta"]["description"]);
+                     $("#attribution-in").val(item["meta"]["attribution"]);
+                     $("#logo-url-in").val(item["meta"]["logo"]);
                  }, function () {
 
                  });
@@ -34,42 +34,43 @@
 
              //Cancel Action
              $("#cancel-button").on("click",function(){
-                 $("#collection-editor").remove();
+                 $("#item-editor").remove();
              });
 
             //Save Action
-            $("#save-collection-button").on("click",function(){
+            $("#save-item-button").on("click",function(){
                 let label = $("#label-in").val();
                 let description = $("#description-in").val();
 
                 let attribution = $("#attribution-in").val();
                 let logoUrl = $("#logo-url-in").val();
 
-                if(collectionEditorId ==="") {
-                    //Create a new collection
+                if(itemEditorId ==="") {
+                    //Create a new item
 
-                    apiAddCollection({
+                    apiAddItem("%item-editor-collection-id%",{
                             "label": label,
                             "description": description,
                             "attribution": attribution,
                             "logo": logoUrl
                         },
                         function () {
-                            $("#collection-editor").remove();
-                            updateCollections();
+                            $("#item-editor").remove();
+                            update();
                         },
                         function () {
                         })
                 }else{
-                     apiUpdateCollection(collectionEditorId,{
+                    //TODO
+                     apiUpdateItem(itemEditorId,{
                             "label": label,
                             "description": description,
                             "attribution": attribution,
                             "logo": logoUrl
                         },
                         function () {
-                            $("#collection-editor").remove();
-                            updateCollections();
+                            $("#item-editor").remove();
+                            update();
                         },
                         function () {
                         })

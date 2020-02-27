@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/editor.css">
+    <link rel="stylesheet" type="text/css" href="css/collections.css">
+
+    <script src="js/lib/jquery.min.js" type="text/javascript"></script>
+    <script src="js/api/api.js" type="text/javascript"></script>
+    <script src="js/ui.js" type="text/javascript"></script>
+    <script src="js/api/collections.js" type="text/javascript"></script>
+    <script src="js/api/items.js" type="text/javascript"></script>
+
+    <title>Zenetti - Collection</title>
+
+    </head>
+
+    <body>
+        <header></header>
+        <script type="text/javascript">
+            $("header").load( "templates/header_bar.html" );
+        </script>
+
+        <div class="page-content">
+
+            <h2 id ="collection-label">Collection</h2>
+            <div class="toolbar">
+                <div class="toolbar-content">
+                    <input type="text" placeholder="Search" >
+                    <button id="add-item-button">New Item</button>
+                    <button id="edit-metadata-button">Edit Metadata</button>
+
+                     <script type="text/javascript">
+                        $("#add-item-button").on("click", function() {
+                                    loadTemplate("templates/item-editor.html", function (template) {
+                                        template = replaceParameter(template,"%item-editor-id%","");
+                                        template = replaceParameter(template,"%item-editor-collection-id%",collectionId);
+                                        $("body").append(template);
+                                    });
+                                });
+                        $("#edit-metadata-button").on("click", function() {
+                            loadTemplate("templates/collection-editor.html", function (template) {
+                                template = replaceParameter(template, "%collection-editor-id%", collectionId);
+                                $("body").append(template);
+                        });
+        });
+                     </script>
+                </div>
+            </div>
+
+            <div class="cards" id="item-cards">
+
+            </div>
+        </div>
+        <script>
+            let collectionId = "";
+            let updateFunctions={};
+            function update() {
+                $(".card").remove();
+
+                let searchParams = new URLSearchParams(window.location.search);
+                searchParams.has('id');
+                collectionId = searchParams.get('id');
+                apiGetCollection(collectionId, function (collection) {
+                    $("#collection-label").html("Collection " + collection["meta"]["label"]);
+                    loadTemplate("templates/item-item.html", function (template) {
+                          for(var item_i in collection["items"]){
+                              var card = template;
+                              card = replaceParameter(card, "%item-id%", collection["items"][item_i]);
+                              card = replaceParameter(card, "%item-collection-id%", collectionId);
+
+                              $("#item-cards").append(card);
+                          }
+                    })
+
+                }, function () {
+
+                })
+            }
+            update();
+
+        </script>
+
+
+
+    </body>
+</html>

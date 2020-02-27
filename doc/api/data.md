@@ -7,7 +7,7 @@ This workflow offers an non destructive way to crop into a bookpage contained in
 ```
 + - - - - - - +         + - - - - - - - - +         + - - - - - - - - +         #######################
 |             |         |                 |         |                 | < - - - #     HTTP-request    #
-|  RAW IMAGE  | - - - > | SCALE + ROTATE  | - - - > | IIIF - workflow |         #    (region, size,   #
+|  RAW IMAGE  | - - - > | CROP + ROTATE   | - - - > | IIIF - workflow |         #    (region, size,   #
 |             |         |                 |         |                 | - - - > #  rotation, quality) #
 + - - - - - - +         + - - - - - - - - +         + - - - - - - - - +         #######################
                                 ^

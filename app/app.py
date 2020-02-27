@@ -7,6 +7,8 @@ from modules.api.api import api_blueprint
 from modules.data import data_blueprint
 from modules.api import administration
 from modules.api import collections
+from modules.api import items
+from modules.api import images
 
 from modules.database import database
 

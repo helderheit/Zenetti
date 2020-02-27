@@ -1,8 +1,11 @@
 <div class="card">
     <div class="border">
-        <div class="collection-label">%collection-label%</div>
-        <button id="edit-collection-%collection-id%">Bearbeiten</button>
-        <button id="remove-collection-%collection-id%">Löschen</button>
+        <div class="collection-header">
+            <span class="collection-label"><a href="collection.html?id=%collection-id%">%collection-label%</a></span>
+        <button id="remove-collection-%collection-id%">Remove</button>
+        <button id="edit-collection-%collection-id%">Edit</button>
+
+        </div>
         <div class="collection-description">%collection-description%</div>
         <div class="collection-number">%collection-number% Items</div>
         <div class="collection-logo"><img src="%collection-logo-url%"></div> <div class="collection-attribution">%collection-attribution%</div>
@@ -15,17 +18,17 @@
         loadTemplate("templates/confirm.html", function (template) {
 
             template= replaceParameter(template,"%confirm-id%", id);
-            template = replaceParameter(template,"%confirm-title%", "Kunde löschen");
+            template = replaceParameter(template,"%confirm-title%", "Remove collection");
             template = replaceParameter(template,"%confirm-text%", "Do you really want to remove the collection %collection-label%?" +
                 "(Included items will not be deleted)");
-            template = replaceParameter(template,"%confirm-confirm%", "Löschen");
-            template = replaceParameter(template,"%confirm-cancel%", "Abbrechen");
+            template = replaceParameter(template,"%confirm-confirm%", "Remove");
+            template = replaceParameter(template,"%confirm-cancel%", "Cancel");
             $("body").append(template);
 
             $("#confirm-button-"+id).on("click",function(){
                apiRemoveCollection(id, function(){
                    $(".confirm-background").remove();
-                   updateCollections();
+                   update();
                }, function(){});
             });
 

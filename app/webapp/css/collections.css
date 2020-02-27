@@ -9,3 +9,25 @@
 .card{
     border-left: 4px solid var(--theme);
 }
+
+
+.collection-header, .item-header{
+    padding: 5px;
+    padding-bottom: 20px;
+;
+}
+
+.collection-label > a, .item-label >a {
+    font-size: 20px;
+    text-decoration: underline;
+}
+.collection-header > button, .item-header > button{
+    float: right;
+}
+.collection-logo > img, .item-logo > img{
+    width: 100px;
+}
+.collection-description, .item-description{
+    padding: 10px;
+}
+
