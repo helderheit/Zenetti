@@ -21,7 +21,32 @@
         <script type="text/javascript">
             $("header").load( "templates/header_bar.html" );
         </script>
+
         <div id="viewer"></div>
+
+        <div id="metadata">
+            <span style="width: 100%;padding: 0;margin: 0;">
+                <button class="metadata-btn active" id="btn-album">Album</button>
+                <button class="metadata-btn" id="btn-page">Page</button>
+            </span>
+        </div>
+        <script>
+            var btnContainer = document.getElementById("metadata");
+            var btns = btnContainer.getElementsByClassName("metadata-btn");
+            for (var i = 0; i < btns.length; i++) {
+              btns[i].addEventListener("click", function() {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace("active", "");
+                this.className += " active";
+              });
+            }
+        </script>
+        <!--
+        <script>
+            var myLocalStorage = localStorage.getItem('http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093.json');
+            document.getElementById('metadata').innerHTML += myLocalStorage;
+        </script>
+        -->
 
         <script src="js/lib/mirador.min.js"></script>
         <script type="text/javascript">

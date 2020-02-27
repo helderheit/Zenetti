@@ -39,7 +39,7 @@ h1.headline{
 h2{
     font-weight: 300;
 }
-a {
+.header-item > a {
     text-decoration: none;
     color: inherit;
 }
@@ -54,11 +54,48 @@ a {
     cursor: pointer;
 }
 #viewer{
-position: fixed;
-top: 80px;
-bottom: 0;
-left: 0;
-right: 0;
+    position: fixed;
+    float: left;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width:80%;
+}
+
+#metadata{
+    width: 20%;
+    left: 80%;
+    position: absolute;
+    top: 80px;
+    bottom: 0;
+}
+
+.metadata-btn{
+    font-family: 'Roboto';
+    height: 80px;
+    top:80px;
+    background-color: var(--theme);
+    border: none;
+    outline: none;
+    color: var(--light-accent);
+    font-size: 18px;
+}
+
+.active{
+  background-color: #45b39d;
+}
+
+ .metadata-btn:hover{
+ color: var(--light)}
+
+#btn-album{
+    width: 50%;
+    float: left;
+}
+
+#btn-page{
+    width: 50%;
 }
 
 .page-content{
