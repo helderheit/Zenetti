@@ -69,13 +69,13 @@ h2{
     position: absolute;
     top: 80px;
     bottom: 0;
+    background-color: #323232;
 }
 
 .metadata-btn{
     font-family: 'Roboto';
-    height: 80px;
-    top:80px;
-    background-color: var(--theme);
+    height: 12%;
+    background-color: #000;
     border: none;
     outline: none;
     color: var(--light-accent);
@@ -83,7 +83,7 @@ h2{
 }
 
 .active{
-  background-color: #45b39d;
+  background-color: #323232;
 }
 
  .metadata-btn:hover{
@@ -91,10 +91,38 @@ h2{
 
 #btn-album{
     width: 50%;
-    float: left;
 }
 
 #btn-page{
+    width: 50%;
+    float: left;
+}
+
+#metadata-content{
+    background-color: #323232;
+    height: 80%;
+    top: 0;
+    overflow-y: scroll
+}
+
+#metadata-content-container{
+    color: var(--light-accent);
+    height: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#metadata-edit{
+    font-family: 'Roboto';
+    background-color: #323232;
+    height: 8%;
+    bottom: 0;
+    border: none;
+    outline: none;
+    color: var(--light-accent);
+    font-size: 18px;
     width: 50%;
 }
 

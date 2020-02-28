@@ -3,7 +3,27 @@
   "@id": "http://localhost:4000/manifests/album_01.json",
   "@type": "sc:Manifest",
   "attribution": "University of Regensburg",
-  "description": "",
+  "metadata": [
+    {
+      "label": "Title",
+      "value": "Album 1"
+    },
+    {
+      "label": "Author(s)",
+      "value": "Paul Zenetti"
+    },
+    {
+      "label": "Publication date",
+      "value": "20th century"
+    },
+    {
+      "label": "Attribution",
+      "value": "Haus der Bayerischen Geschichte and University of Regensburg"
+    },
+    {
+      "label": "",
+      "value": "<a href='https://www.uni-regensburg.de'>View website</a>"
+    }],
   "label": "First Album of Paul Zenetti",
   "logo": "https://www.uni-regensburg.de/res/pics/logo.png",
   "service": {
