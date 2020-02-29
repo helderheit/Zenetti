@@ -1,9 +1,12 @@
+import os
+
 from flask import request, jsonify
 from modules.api import api
 
 from modules.database import images
 
 from modules.api.api import check_attributes
+from werkzeug.utils import secure_filename
 
 
 @api.api_blueprint.route("images/<image_id>", methods=["GET"])
@@ -20,16 +23,16 @@ def get_image(image_id):
 def add_image():
     """adds a image to the database"""
     data = request.json
-    attributes = ["file-name", "file-extension", "path", "width","height"]
+    attributes = ["file-name", "file-extension", "path", "width", "height"]
     attribute_missing = check_attributes(data, attributes)
     if attribute_missing:
         return jsonify(attribute_missing), 422
 
     success = images.add_image(data["file-name"],
-                                         data["file-extension"],
-                                         data["path"],
-                                         data["width"],
-                                         data["height"]
+                               data["file-extension"],
+                               data["path"],
+                               data["width"],
+                               data["height"]
                                )
     if success:
         return jsonify(success), 200
@@ -47,3 +50,24 @@ def update_image(image_id):
 def remove_image(image_id):
     # TODO
     return None
+
+
+@api.api_blueprint.route('images/<collection_id>/<item_id>', methods=['POST'])
+def upload_image(collection_id, item_id):
+    print(request.files)
+    files = request.files.getlist("files")
+    # create directories
+
+    if not os.path.exists("webapp/data/" + collection_id + "/" + item_id):
+        os.makedirs("webapp/data/" + collection_id + "/" + item_id)
+
+
+    for file in files:
+        print(file.filename)
+        filename = secure_filename(file.filename)
+        # TODO create image object
+        # TODO add image to item
+        file.save(os.path.join("webapp/data/" + collection_id + "/" + item_id, filename))
+    resp = jsonify({'message': 'File successfully uploaded'})
+    resp.status_code = 201
+    return resp

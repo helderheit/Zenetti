@@ -1,6 +1,6 @@
 <div class="card">
     <div class="border">
-        <div class="collection-header">
+        <div class="item-header">
             <span class="item-label"><a href="item.html?id=%item-id%" id="item-label-%item-id%"></a></span>
         <button id="remove-item-%item-id%">Remove</button>
         <button id="edit-item-%item-id%">Edit</button>
@@ -56,6 +56,14 @@
     $("#edit-item-%item-id%").on("click",function(){
         loadTemplate("templates/item-editor.html", function (template) {
             template = replaceParameter(template,"%item-editor-id%","%item-id%");
+            $("body").append(template);
+        });
+    });
+    $("#upload-images-%item-id%").on("click",function(){
+        loadTemplate("templates/image-upload.html", function (template) {
+            template = replaceParameter(template,"%upload-item-id%","%item-id%");
+            template = replaceParameter(template,"%upload-collection-id%","%item-collection-id%");
+
             $("body").append(template);
         });
     });

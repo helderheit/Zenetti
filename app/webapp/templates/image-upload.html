@@ -1,0 +1,48 @@
+ <!--Uploading Images to an item-->
+        <div class="editor-background" id="upload-editor">
+             <div class="editor">
+                 <div class="border">
+                     <form id="upload" action="" method="POST" enctype="multipart/form-data">
+                         <div class="editor-label">Upload Images</div>
+                            <div>
+                                <label for="fileselect">Files to upload:</label>
+                                <input type="file" id="fileselect" name="files" multiple="multiple">
+                                <div id="filedrag">or drop files here</div>
+                            </div>
+                         <div class="editor-button">
+                             <button id="upload-button" type="submit">Upload</button>
+                             <button id="cancel-button">Cancel</button>
+                         </div>
+                     </form>
+                 </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+
+
+         //Cancel Action
+         $("#cancel-button").on("click",function(){
+             $("#upload-editor").remove();
+         });
+          //Upload Action
+         $('#upload').submit(function(e){
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url:'../api/1.0/images/%upload-collection-id%/%upload-item-id%',
+                type:'POST',
+                enctype: 'multipart/form-data',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success:function(){
+                    update();
+                    //$("#upload-editor").remove();
+                }
+            });
+        });
+
+
+
+        </script>

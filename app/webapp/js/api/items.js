@@ -75,3 +75,19 @@ function apiUpdateItem(itemId, data, onSuccess, onError){
       }
   });
 }
+
+function apiUploadImage(file, onSuccess, onError){
+    $.ajax({
+            url: API_URL_PREFIX+"file-upload",
+            type: "post",
+            data: file,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                onSuccess(response);
+            },
+            error: function () {
+                onError();
+            }
+        });
+}

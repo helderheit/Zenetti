@@ -13,6 +13,8 @@ from modules.api import images
 from modules.database import database
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = "webapp/data"
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 1024
 
 api_url_prefix = "/api/1.0/"
 
