@@ -1,9 +1,12 @@
+import copy
 import os
+from io import BytesIO
 
+from PIL import Image
 from flask import request, jsonify
 from modules.api import api
 
-from modules.database import images
+from modules.database import images, items
 
 from modules.api.api import check_attributes
 from werkzeug.utils import secure_filename
@@ -53,21 +56,30 @@ def remove_image(image_id):
 
 
 @api.api_blueprint.route('images/<collection_id>/<item_id>', methods=['POST'])
-def upload_image(collection_id, item_id):
-    print(request.files)
+def upload_images(collection_id, item_id):
     files = request.files.getlist("files")
     # create directories
-
     if not os.path.exists("webapp/data/" + collection_id + "/" + item_id):
         os.makedirs("webapp/data/" + collection_id + "/" + item_id)
-
 
     for file in files:
         print(file.filename)
         filename = secure_filename(file.filename)
-        # TODO create image object
-        # TODO add image to item
-        file.save(os.path.join("webapp/data/" + collection_id + "/" + item_id, filename))
+        extension = filename.split('.')[-1]
+        path = collection_id + "/" + item_id
+
+        image_bytes = BytesIO(file.stream.read())
+        file.stream.seek(0)
+        # get Image size
+        img = Image.open(image_bytes)
+        size = img.size
+
+        #create image object in database
+        image = images.add_image(extension, path, size[0], size[1])
+        # add image to item
+        items.add_image_to_item(item_id, image["_id"])
+
+        file.save(os.path.join("webapp/data/" + collection_id + "/" + item_id, image["_id"] +"."+extension))
     resp = jsonify({'message': 'File successfully uploaded'})
     resp.status_code = 201
     return resp

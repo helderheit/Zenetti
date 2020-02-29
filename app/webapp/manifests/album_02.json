@@ -1,0 +1,104 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://localhost:4000/manifests/album_01.json",
+  "@type": "sc:Manifest",
+  "attribution": "University of Regensburg",
+  "metadata": [
+    {
+      "label": "Title",
+      "value": "Album 1"
+    },
+    {
+      "label": "Author(s)",
+      "value": "Paul Zenetti"
+    },
+    {
+      "label": "Publication date",
+      "value": "20th century"
+    },
+    {
+      "label": "Attribution",
+      "value": "Haus der Bayerischen Geschichte and University of Regensburg"
+    },
+    {
+      "label": "",
+      "value": "<a href='https://www.uni-regensburg.de'>View website</a>"
+    }],
+  "label": "First Album of Paul Zenetti",
+  "logo": "https://www.uni-regensburg.de/res/pics/logo.png",
+  "service": {
+    "@context": "http://iiif.io/api/search/1/context.json",
+    "@id": "http://exist.scta.info/exist/apps/scta/iiif/pg-lon/search",
+    "profile": "http://iiif.io/api/search/1/search",
+    "label": "Search within this manifest"
+    },
+  "rendering": {
+    "@id": "http://localhost:4000/",
+    "format": "text/html",
+    "label": "Full record view"
+  },
+  "sequences": [
+    {"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
+      "@type":"sc:Sequence",
+      "label":"Default",
+      "canvases":[
+            {"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
+              "@type":"sc:Canvas",
+              "label":"Coming soon: Paul Zenetti",
+              "width":5392,
+              "height":8158,
+              "images":[{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
+                          "@type":"oa:Annotation",
+                          "motivation":"sc:painting",
+                          "on":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
+                          "resource":{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092",
+                                      "@type":"dctypes:Image",
+                                      "format":"image/jpeg",
+                                      "width":5392,
+                                      "height":8158,
+                                      "service":{"@context":"http://iiif.io/api/image/2/context.json",
+                                                  "profile":"http://iiif.io/api/image/2/level1.json",
+                                                  "@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092"}}}]}
+      ,{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093.json",
+              "@type":"sc:Canvas",
+              "label":"Coming soon: Paul Zenetti",
+              "width":5392,
+              "height":8158,
+              "images":[{"@id":"http://localhost:4000/data/114d1a4b-c225-4f0b-8c1f-f1f3eb8c2b56/dded28e5-dd04-4f41-a5c2-dc8776fa3525/1c94e4f0-5496-4575-96d9-049472aedcf3.json",
+                          "@type":"oa:Annotation",
+                          "motivation":"sc:painting",
+                          "on":"http://localhost:4000/data/114d1a4b-c225-4f0b-8c1f-f1f3eb8c2b56/dded28e5-dd04-4f41-a5c2-dc8776fa3525/1c94e4f0-5496-4575-96d9-049472aedcf3.json",
+                          "resource":{"@id":"http://localhost:4000/data/114d1a4b-c225-4f0b-8c1f-f1f3eb8c2b56/dded28e5-dd04-4f41-a5c2-dc8776fa3525/1c94e4f0-5496-4575-96d9-049472aedcf3",
+                                      "@type":"dctypes:Image",
+                                      "format":"image/jpeg",
+                                      "width":5392,
+                                      "height":8158,
+                                      "service":{"@context":"http://iiif.io/api/image/2/context.json",
+                                                  "profile":"http://iiif.io/api/image/2/level1.json",
+                                                  "@id":"http://localhost:4000/data/114d1a4b-c225-4f0b-8c1f-f1f3eb8c2b56/dded28e5-dd04-4f41-a5c2-dc8776fa3525/1c94e4f0-5496-4575-96d9-049472aedcf3"}}}]}
+      ,{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094.json",
+              "@type":"sc:Canvas",
+              "label":"Coming soon: Paul Zenetti",
+              "width":5392,
+              "height":8158,
+              "images":[{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094.json",
+                          "@type":"oa:Annotation",
+                          "motivation":"sc:painting",
+                          "on":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094.json",
+                          "resource":{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094",
+                                      "@type":"dctypes:Image",
+                                      "format":"image/jpeg",
+                                      "width":5392,
+                                      "height":8158,
+                                      "service":{"@context":"http://iiif.io/api/image/2/context.json",
+                                                  "profile":"http://iiif.io/api/image/2/level1.json",
+                                                  "@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094"}}}]}
+
+      ]}
+  ],
+  "thumbnail": {"@id": "http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092/full/,200/0/default",
+                "service": {"@context": "http://iiif.io/api/image/2/context.json",
+                            "@id": "http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092",
+                            "profile": "http://iiif.io/api/image/2/level2.json"}},
+  "within": "http://localhost:4000/"
+}

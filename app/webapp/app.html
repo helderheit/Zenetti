@@ -48,7 +48,7 @@
             var no_meta_disp = true;
 
             if(no_meta_disp){
-                var manifest_source = "http://localhost:4000/manifests/album_01.json";
+                var manifest_source = "http://localhost:4000/manifests/album_02.json";
                 $.getJSON(manifest_source, function(data) {
                     content = "";
                     for(var i = 0; i < (data.metadata).length; i++) {
@@ -62,7 +62,7 @@
             }
 
             function disp_album_data() {
-                var manifest_source = "http://localhost:4000/manifests/album_01.json";
+                var manifest_source = "http://localhost:4000/manifests/album_02.json";
                 $.getJSON(manifest_source, function(data) {
                     content = "";
                     for(var i = 0; i < (data.metadata).length; i++) {
@@ -96,7 +96,7 @@
              "layout": "1x1",
              "buildPath": "",
              "data": [
-               { "manifestUri": "http://localhost:4000/manifests/album_01.json", "location": "University of Regensburg"}
+               { "manifestUri": "http://localhost:4000/manifests/album_02.json", "location": "University of Regensburg"}
             ],
             "windowObjects": [{
                loadedManifest: "",

@@ -70,7 +70,7 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
     "annotate": [], // List of Usernames with permission to annotate the item
     "edit": [], // List of Usernames with permission to edit
     			//the structure of the document, to add, remove and crop images etc.
-    "images": {}, // key-value list of page-number and refence to Image-Object
+    "images": [], // refences to Image-Objects
     "meta": { //Metadata
         "attribution": [String], //Institution
         "logo": [String], //Url to an image-file
@@ -126,7 +126,6 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 ```json
 {
     "_id": [String], // Image id
-    "file-name": [String],
     "file-extension": [String],
     "path": [String], //full path to th image file in the data directory
     "proto": "image", 

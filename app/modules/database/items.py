@@ -14,7 +14,7 @@ def add_item(label, description, attribution, logo):
                                                            "read": [],
                                                            "annotate": [],
                                                            "edit": [],
-                                                           "images": {},
+                                                           "images": [],
                                                            "meta": {
                                                                "attribution": attribution,
                                                                "logo": logo,
@@ -63,6 +63,7 @@ def remove_item(item_id):
         if data:
             if "proto" in data:
                 if data["proto"] == "item":
+                    #TODO delete images and files
                     del database.server[database.DATA_DB_NAME][item_id]
                     print("Removed item " + item_id + " from database")
                     return True
@@ -82,3 +83,15 @@ def update_metadata(item_id, metadata):
                 return database.server[database.DATA_DB_NAME][item_id]
     return None
 
+
+def add_image_to_item(item_id, image_id):
+    data = database.server[database.DATA_DB_NAME][item_id]
+    if data:
+        if "proto" in data:
+            if data["proto"] == "item":
+                if image_id not in data["images"]:
+                    data["images"].append(image_id)
+                    database.server[database.DATA_DB_NAME][item_id] = data
+                    return database.server[database.DATA_DB_NAME][item_id]
+                # TODO else:
+    return None

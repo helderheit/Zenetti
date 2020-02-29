@@ -9,7 +9,7 @@ def get_image(image_id):
         data = database.server[database.DATA_DB_NAME][image_id]
         if "proto" in data:
             if data["proto"] == "image":
-                del data["rev"]
+                del data["_rev"]
                 return data
         print("Could not get image " + image_id + ": Document type not image")
         return None
@@ -19,14 +19,13 @@ def get_image(image_id):
         return None
 
 
-def add_image(file_name, file_extension, path, width, height):
+def add_image(file_extension, path, width, height):
     try:
         image_id = str(uuid.uuid4())
         database.server[database.DATA_DB_NAME][image_id] = {"_id": image_id,
                                                             "proto": "image",
-                                                            "file-name": file_name,
                                                             "file-extension": file_extension,
-                                                            "path": path,
+                                                            "path": path +"/"+image_id +"."+file_extension,
                                                             "owner": "",
                                                             "meta": {
                                                                 "width": width,
