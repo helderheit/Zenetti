@@ -75,3 +75,4 @@ def update_collection(collection_id):
         return jsonify(success), 200
     else:
         return jsonify({"error": "Could not update collection " + collection_id}), 409
+

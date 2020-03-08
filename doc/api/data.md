@@ -23,7 +23,7 @@ This workflow offers an non destructive way to crop into a bookpage contained in
 
 ### Get image
 
-> [GET] api/1.0/`collection`/`item_id`/`uuid`/`region`/`size`/`rotatin`/`quality`
+> [GET] data/`collection`/`item_id`/`uuid`/`region`/`size`/`rotatin`/`quality`
 
 Returns an image or a region of an image with applied IIIF workflow.
 
@@ -33,12 +33,12 @@ Use `region` = **full** to get the whole image
 
 ### Get image info
 
-> [GET] api/1.0/`collection`/`item_id`/`uuid`/info.json
+> [GET] data/`collection`/`item_id`/`uuid`/info.json
 
 Returns information for an image in IIIF-style.
 
 ### Get manifest
 
-> [GET] api/1.0/`collection`/ `item_id`/manifest.json
+> [GET] data/`collection_id`
 
 Returns a IIIF manifest.
