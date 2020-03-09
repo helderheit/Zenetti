@@ -59,6 +59,8 @@
                         item = replaceParameter(item, "%collection-description%",collections[collections_i]["meta"]["description"]);
                         item = replaceParameter(item, "%collection-attribution%",collections[collections_i]["meta"]["attribution"]);
                         item = replaceParameter(item, "%collection-logo-url%",collections[collections_i]["meta"]["logo"]);
+                        item = replaceParameter(item, "%collection-number%",collections[collections_i]["items"].length.toString());
+
 
                         $("#collection-cards").append(item);
                     }

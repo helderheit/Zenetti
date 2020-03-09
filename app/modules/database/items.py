@@ -21,6 +21,7 @@ def add_item(label, description, attribution, logo):
                                                                "label": label,
                                                                "description": description,
                                                            },
+                                                           "metadata":[],
                                                            "thumbnail": ""
                                                            }
         print("Added item to database")

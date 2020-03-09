@@ -7,6 +7,8 @@ from flask_iiif.api import IIIFImageAPIWrapper
 from werkzeug.utils import secure_filename
 from modules.database import images, collections
 
+from modules.database import items
+
 data_blueprint = Blueprint("data", __name__)
 
 
@@ -57,37 +59,50 @@ def get_image_info(collection, item, uuid):
     }
     return jsonify(data), 200
 
-@data_blueprint.route("/data/<collection_id>.json")
-def get_manifest(collection_id):
-    collection = collections.get_collection(collection_id)
+
+def generate_image_in_manifest(collection_id, item_id, image_object):
+    image_json = {"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]+".json",
+          "@type": "sc:Canvas",
+          "label": "",
+          "width": image_object["meta"]["width"],
+          "height": image_object["meta"]["height"],
+          "images": [{"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]+".json",
+                      "@type": "oa:Annotation",
+                      "motivation": "sc:painting",
+                      "on": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]+".json",
+                      "resource": {"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"],
+                                   "@type": "dctypes:Image",
+                                   "format": "image/jpeg",
+                                   "width": image_object["meta"]["width"],
+                                   "height": image_object["meta"]["height"],
+                                   "service": {"@context": "http://iiif.io/api/image/2/context.json",
+                                               "profile": "http://iiif.io/api/image/2/level1.json",
+                                               "@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]}}}]
+          }
+
+    return image_json
+
+@data_blueprint.route("/data/<collection_id>/<item_id>")
+def get_manifest(collection_id, item_id):
+    item = items.get_item(item_id)
+    # generate json for images
+    image_json = []
+    first_image_id = ""
+    for image_id in item["images"]:
+        if first_image_id == "":
+            first_image_id = image_id
+        image_json.append(generate_image_in_manifest(collection_id, item_id, images.get_image(image_id)))
+
+
+
     manifest = {
       "@context": "http://iiif.io/api/presentation/2/context.json",
-      "@id": "http://localhost:4000/manifests/album_01.json",
+      "@id": "http://localhost:4000/"+collection_id+"/"+item_id,
       "@type": "sc:Manifest",
-      "attribution": collection["meta"]["attribution"],
-      "metadata": [
-        {
-          "label": "Title",
-          "value": "Album 1"
-        },
-        {
-          "label": "Author(s)",
-          "value": "Paul Zenetti"
-        },
-        {
-          "label": "Publication date",
-          "value": "20th century"
-        },
-        {
-          "label": "Attribution",
-          "value": "Haus der Bayerischen Geschichte and University of Regensburg"
-        },
-        {
-          "label": "",
-          "value": "<a href='https://www.uni-regensburg.de'>View website</a>"
-        }],
-      "label": "Albums of Paul Zenetti",
-      "logo": "https://www.uni-regensburg.de/res/pics/logo.png",
+      "attribution": item["meta"]["attribution"],
+      "metadata": item["metadata"],
+      "label": item["meta"]["label"],
+      "logo": item["meta"]["logo"],
       "service": {
         "@context": "http://iiif.io/api/search/1/context.json",
         "@id": "http://exist.scta.info/exist/apps/scta/iiif/pg-lon/search",
@@ -99,68 +114,13 @@ def get_manifest(collection_id):
         "format": "text/html",
         "label": "Full record view"
       },
-      "sequences": [
-        {"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
-          "@type":"sc:Sequence",
-          "label":"Default",
-          "canvases":[
-                {"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
-                  "@type":"sc:Canvas",
-                  "label":"Coming soon: Paul Zenetti",
-                  "width":5392,
-                  "height":8158,
-                  "images":[{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
-                              "@type":"oa:Annotation",
-                              "motivation":"sc:painting",
-                              "on":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092.json",
-                              "resource":{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092",
-                                          "@type":"dctypes:Image",
-                                          "format":"image/jpeg",
-                                          "width":5392,
-                                          "height":8158,
-                                          "service":{"@context":"http://iiif.io/api/image/2/context.json",
-                                                      "profile":"http://iiif.io/api/image/2/level1.json",
-                                                      "@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092"}}}]}
-          ,{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093.json",
-                  "@type":"sc:Canvas",
-                  "label":"Coming soon: Paul Zenetti",
-                  "width":5392,
-                  "height":8158,
-                  "images":[{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093.json",
-                              "@type":"oa:Annotation",
-                              "motivation":"sc:painting",
-                              "on":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093.json",
-                              "resource":{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093",
-                                          "@type":"dctypes:Image",
-                                          "format":"image/jpeg",
-                                          "width":5392,
-                                          "height":8158,
-                                          "service":{"@context":"http://iiif.io/api/image/2/context.json",
-                                                      "profile":"http://iiif.io/api/image/2/level1.json",
-                                                      "@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093"}}}]}
-          ,{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094.json",
-                  "@type":"sc:Canvas",
-                  "label":"Coming soon: Paul Zenetti",
-                  "width":5392,
-                  "height":8158,
-                  "images":[{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094.json",
-                              "@type":"oa:Annotation",
-                              "motivation":"sc:painting",
-                              "on":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094.json",
-                              "resource":{"@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094",
-                                          "@type":"dctypes:Image",
-                                          "format":"image/jpeg",
-                                          "width":5392,
-                                          "height":8158,
-                                          "service":{"@context":"http://iiif.io/api/image/2/context.json",
-                                                      "profile":"http://iiif.io/api/image/2/level1.json",
-                                                      "@id":"http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000094"}}}]}
-
-          ]}
-      ],
-      "thumbnail": {"@id": "http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092/full/,200/0/default",
+      "sequences": [{"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+first_image_id+".json",
+             "@type": "sc:Sequence",
+             "label": "Default",
+             "canvases": image_json}],
+      "thumbnail": {"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+first_image_id+"/full/,200/0/default",
                     "service": {"@context": "http://iiif.io/api/image/2/context.json",
-                                "@id": "http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000092",
+                                "@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+first_image_id,
                                 "profile": "http://iiif.io/api/image/2/level2.json"}},
       "within": "http://localhost:4000/"
     }

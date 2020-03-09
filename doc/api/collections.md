@@ -71,12 +71,18 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
     "edit": [], // List of Usernames with permission to edit
     			//the structure of the document, to add, remove and crop images etc.
     "images": [], // refences to Image-Objects
-    "meta": { //Metadata
+    "meta": { //IIIF-Metadata
         "attribution": [String], //Institution
         "logo": [String], //Url to an image-file
         "label": [String],
         "description", [String]
     },
+    "metadata": [ //Annotated Metdata for the item
+        {
+         "label": [String],
+         "value": [String]
+        }
+    ],
     "thumbnail", [String] // reference of image object used as thumbnail
 }
 ```
@@ -130,7 +136,7 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
     "path": [String], //full path to th image file in the data directory
     "proto": "image", 
     "owner": [String], // Username of the owner of the image, full rights
-    "meta": { //Metadata
+    "meta": { //IIIF-Metadata
         "width": [Integer]
         "height": [Integer]
     	"crop": {
@@ -141,6 +147,8 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
             "rotation": [Float]
 		}
     },
+	"metadata": [//Annotated Metdata
+        ]
 }
 ```
 

@@ -24,6 +24,8 @@
             $("#item-description-" + itemId).html(item["meta"]["description"]);
             $("#item-attribution-" + itemId).html(item["meta"]["attribution"]);
             $("#item-logo-" + itemId).attr("src",(item["meta"]["logo"]));
+            $("#item-number-" + itemId).html(item["images"].length.toString() +" Images");
+
         }, function () {
 
         });
