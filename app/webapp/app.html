@@ -90,7 +90,33 @@
 
         <script src="js/lib/mirador.min.js"></script>
         <script type="text/javascript">
-        var collectionId = '114d1a4b-c225-4f0b-8c1f-f1f3eb8c2b56';
+
+        var myMiradorInstance;
+
+        function update_annotation(new_annotation){
+            console.log("annotation_update" + new_annotation);
+        }
+
+        var open_windows = []
+        function add_window(self, data){
+            open_windows.push(data.id)
+            console.log(self);
+            console.log(data);
+            //console.log("id: " + data.id);
+
+            try {
+               myMiradorInstance.eventEmitter.subscribe('annotationUpdated.[data.id]', update_annotation);
+               console.log("annotation listener added");
+            }
+            catch (e) {
+               console.log(e);
+            }
+
+
+            //myMiradorInstance.eventEmitter.subscribe('annotationUpdated.[data.id]', update_annotation);
+        }
+
+        var collectionId = '16a63fe0-54ec-4cc9-884c-39a689d03894';
         apiGetCollection(collectionId, function(collection){
             var manifestUris = []
             for(var i in collection["items"]){
@@ -99,9 +125,9 @@
                  { "manifestUri": "http://localhost:4000/data/"+collectionId+"/"+collection["items"][i], "location": "University of Regensburg"}
                 );
             }
-            $(function() {
-           myMiradorInstance = Mirador({
-             "id": "viewer",
+
+            myMiradorInstance = new Mirador({
+                "id": "viewer",
              "layout": "1x1",
              "buildPath": "",
              "data": manifestUris,
@@ -125,9 +151,11 @@
                "layersTabAvailable": true,
                "searchTabAvailable": true
              }
-           });
-         });
-        },function(){});
+            });
+
+            myMiradorInstance.eventEmitter.subscribe('windowAdded', add_window);
+
+       },function(){});
 
         </script>
 
