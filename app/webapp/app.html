@@ -93,20 +93,26 @@
 
         var myMiradorInstance;
 
-        function update_annotation(new_annotation){
-            console.log("annotation_update" + new_annotation);
+        function create_annotation(self, new_annotation){
+            console.log("annotation created");
+            console.log(new_annotation);
+        }
+
+        function update_annotation(self, new_annotation){
+            console.log("annotation update");
+            console.log(new_annotation);
         }
 
         var open_windows = []
         function add_window(self, data){
             open_windows.push(data.id)
-            console.log(self);
-            console.log(data);
-            //console.log("id: " + data.id);
+            //console.log(self);
+            console.log("window added: " + data.id);
 
             try {
-               myMiradorInstance.eventEmitter.subscribe('annotationUpdated.[data.id]', update_annotation);
-               console.log("annotation listener added");
+                myMiradorInstance.eventEmitter.subscribe('annotationCreated.'+data.id, create_annotation);
+                myMiradorInstance.eventEmitter.subscribe('annotationUpdated.'+data.id, update_annotation);
+                console.log("annotation listener added");
             }
             catch (e) {
                console.log(e);
@@ -114,6 +120,14 @@
 
 
             //myMiradorInstance.eventEmitter.subscribe('annotationUpdated.[data.id]', update_annotation);
+        }
+
+        function remove_window(self, window_id){
+            console.log("window removed: " + window_id);
+            var index = open_windows.indexOf(window.id);
+            if (index > -1) {
+                open_windows.splice(index, 1);
+            }
         }
 
         var collectionId = '16a63fe0-54ec-4cc9-884c-39a689d03894';
@@ -154,6 +168,7 @@
             });
 
             myMiradorInstance.eventEmitter.subscribe('windowAdded', add_window);
+            myMiradorInstance.eventEmitter.subscribe('windowRemoved', remove_window);
 
        },function(){});
 
