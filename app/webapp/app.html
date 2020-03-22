@@ -25,6 +25,7 @@
 
         <div id="viewer"></div>
 
+        <!--
         <div id="metadata">
             <span style="width: 100%;padding: 0;margin: 0;">
                 <button class="metadata-btn active" id="btn-album" onclick="disp_album_data()">Album</button>
@@ -81,6 +82,7 @@
                 no_meta_disp = false;
             }
         </script>
+        -->
         <!--
         <script>
             var myLocalStorage = localStorage.getItem('http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093.json');
@@ -93,9 +95,18 @@
 
         var myMiradorInstance;
 
+
+        var test_key;
+        var test_value;
+
         function create_annotation(self, new_annotation){
             console.log("annotation created");
+            // value
             console.log(new_annotation);
+            test_value = new_annotation;
+            // key
+            console.log(new_annotation.on[0].full);
+            test_key = new_annotation.on[0].full;
         }
 
         function update_annotation(self, new_annotation){
@@ -127,6 +138,18 @@
             var index = open_windows.indexOf(window_id);
             if (index > -1) {
                 open_windows.splice(index, 1);
+            }
+        }
+
+        // für jede Seite eines Albums wird ein key in den local storage gespeichert (key ist für alle annotationen auf
+        // der Seite gleich und kann in der Rückgabe des "new annotation events" ausgelesen werden); Der dazugehörige
+        // value ist ein stringified array aller annotationsobjekte
+        function write_storage(){
+            console.log("set storage");
+            var list = [];
+            if(test_key && test_value){
+                list.push(test_value);
+                localStorage.setItem(test_key, JSON.stringify(list));
             }
         }
 
