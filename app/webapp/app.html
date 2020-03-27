@@ -25,71 +25,6 @@
 
         <div id="viewer"></div>
 
-        <!--
-        <div id="metadata">
-            <span style="width: 100%;padding: 0;margin: 0;">
-                <button class="metadata-btn active" id="btn-album" onclick="disp_album_data()">Album</button>
-                <button class="metadata-btn" id="btn-page" onclick="disp_page_data()">Page</button>
-            </span>
-            <div id="metadata-content">
-                <div id="metadata-content-container"></div>
-            </div>
-            <button id="metadata-edit">Edit <img src="data/Logo/add_comment-white-18dp/1x/round_add_comment_white_18dp.png"/></button>
-        </div>
-        <script>
-            var btnContainer = document.getElementById("metadata");
-            var btns = btnContainer.getElementsByClassName("metadata-btn");
-            for (var i = 0; i < btns.length; i++) {
-              btns[i].addEventListener("click", function() {
-                var current = document.getElementsByClassName("active");
-                current[0].className = current[0].className.replace("active", "");
-                this.className += " active";
-              });
-            }
-
-            var no_meta_disp = true;
-
-            if(no_meta_disp){
-                var manifest_source = "http://localhost:4000/manifests/album_02.json";
-                $.getJSON(manifest_source, function(data) {
-                    content = "";
-                    for(var i = 0; i < (data.metadata).length; i++) {
-                        var label = (data.metadata)[i].label;
-                        var value = (data.metadata)[i].value;
-                        content = content + "<b>" + label + "</b>" + "<br>" + value + "<br>" + "<br>";
-                        //console.log(content);
-                    }
-                    document.getElementById("metadata-content-container").innerHTML = content;
-                });
-            }
-
-            function disp_album_data() {
-                var manifest_source = "http://localhost:4000/manifests/album_02.json";
-                $.getJSON(manifest_source, function(data) {
-                    content = "";
-                    for(var i = 0; i < (data.metadata).length; i++) {
-                        var label = (data.metadata)[i].label;
-                        var value = (data.metadata)[i].value;
-                        content = content + "<b>" + label + "</b>" + "<br>" + value + "<br>" + "<br>";
-                        //console.log(content);
-                    }
-                    document.getElementById("metadata-content-container").innerHTML = content;
-                });
-                no_meta_disp = false;
-            }
-            function disp_page_data() {
-                document.getElementById("metadata-content-container").innerHTML = "";
-                no_meta_disp = false;
-            }
-        </script>
-        -->
-        <!--
-        <script>
-            var myLocalStorage = localStorage.getItem('http://localhost:4000/data/Zenetti_Tagebuecher/Album_01/ubr2008000093.json');
-            document.getElementById('metadata').innerHTML += myLocalStorage;
-        </script>
-        -->
-
         <script src="js/lib/mirador.min.js"></script>
         <script type="text/javascript">
 
@@ -182,11 +117,6 @@
                    }
                  }
                }
-             },
-             "sidePanelOptions" : {
-               "tocTabAvailable": true,
-               "layersTabAvailable": true,
-               "searchTabAvailable": true
              }
             });
 
