@@ -4,7 +4,7 @@ from modules.api import api
 from modules.database import database
 
 
-def add_item(label, description, attribution, logo):
+def add_item(label, description, attribution, logo, metadata):
     try:
 
         item_id = str(uuid.uuid4())
@@ -21,7 +21,7 @@ def add_item(label, description, attribution, logo):
                                                                "label": label,
                                                                "description": description,
                                                            },
-                                                           "metadata":[],
+                                                           "metadata":metadata,
                                                            "thumbnail": ""
                                                            }
         print("Added item to database")
@@ -74,12 +74,13 @@ def remove_item(item_id):
     pass
 
 
-def update_metadata(item_id, metadata):
+def update_metadata(item_id, attributes, metadata):
     data = database.server[database.DATA_DB_NAME][item_id]
     if data:
         if "proto" in data:
             if data["proto"] == "item":
-                data["meta"] = metadata
+                data["meta"] = attributes
+                data["metadata"] = metadata
                 database.server[database.DATA_DB_NAME][item_id] = data
                 return database.server[database.DATA_DB_NAME][item_id]
     return None

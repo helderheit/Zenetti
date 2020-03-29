@@ -28,6 +28,14 @@ def get_item(item_id):
     pass
 
 
+def extract_metadata(data):
+    metadata = []
+    for key in data:
+        if key not in ["label", "description", "attribution", "logo"]:
+            metadata.append({"label": key, "value": data[key]})
+    return metadata
+
+
 @api.api_blueprint.route("items/<collection_id>", methods=["POST"])
 def add_item(collection_id):
     """add a item to the database"""
@@ -36,11 +44,11 @@ def add_item(collection_id):
     attribute_missing = check_attributes(data, attributes)
     if attribute_missing:
         return jsonify(attribute_missing), 422
-
+    metadata = extract_metadata(data)
     success = items.add_item(data["label"],
                              data["description"],
                              data["attribution"],
-                             data["logo"])
+                             data["logo"], metadata)
     if success:
         collections.add_item_to_collection(collection_id, success["_id"])
         return jsonify(success), 200
@@ -68,13 +76,13 @@ def update_item(item_id):
     attribute_missing = check_attributes(data, attributes)
     if attribute_missing:
         return jsonify(attribute_missing), 422
-
-    success = items.update_metadata(item_id,{
-                                            "label": data["label"],
-                                            "description": data["description"],
-                                            "attribution": data["attribution"],
-                                            "logo": data["logo"]
-                                        },)
+    metadata = extract_metadata(data)
+    success = items.update_metadata(item_id, {
+        "label": data["label"],
+        "description": data["description"],
+        "attribution": data["attribution"],
+        "logo": data["logo"]
+    }, metadata)
     if success:
         return jsonify(success), 200
     else:

@@ -9,6 +9,11 @@
                          <span>Attribution:</span><input id="attribution-in">
                          <span>Logo-Url:</span><input id="logo-url-in">
                      </div>
+                      <div class="editor-label">Annotations</div>
+                     <div class="editor-grid" id ="annotation-grid">
+
+                     </div>
+                     <button id="add-annotation-button">Add Annotation</button>
                      <div class="editor-button">
                          <button id="save-item-button">Save</button>
                          <button id="cancel-button">Cancel</button>
@@ -19,6 +24,8 @@
 
         <script type="text/javascript">
              var itemEditorId = "%item-editor-id%";
+             var annotationsCounter = 0;
+
              //Load data if itemEditorId is not empty
              if(itemEditorId !==""){
                  apiGetItem(itemEditorId,function (item){
@@ -26,6 +33,15 @@
                      $("#description-in").val(item["meta"]["description"]);
                      $("#attribution-in").val(item["meta"]["attribution"]);
                      $("#logo-url-in").val(item["meta"]["logo"]);
+
+                     for(var i in item["metadata"]){
+                         console.log(item["metadata"][i]["label"]);
+                          $("#annotation-grid").append("<input id='annotation-label-"+annotationsCounter.toString()+"' placeholder='label' style='margin-bottom: 10px; margin-right: 10px' value='"+
+                              item["metadata"][i]["label"]+"'><input id='annotation-value-"+annotationsCounter.toString()+"' placeholder='value' value='"+
+                              item["metadata"][i]["value"]+"'>");
+                            annotationsCounter++;
+                     }
+
                  }, function () {
 
                  });
@@ -45,15 +61,27 @@
                 let attribution = $("#attribution-in").val();
                 let logoUrl = $("#logo-url-in").val();
 
+                //extract annotations
+                metadataObject = {}
+                for(var i = 0; i  < annotationsCounter; i++){
+                   var annotationLabel = $("#annotation-label-"+i.toString()).val();
+                   var annotationValue = $("#annotation-value-"+i.toString()).val();
+                   if(annotationLabel != ""){
+                       metadataObject[annotationLabel] = annotationValue
+                   }
+                }
+                //create metadataObject
+
+
+                metadataObject["label"] =  label;
+                metadataObject["description"] = description;
+                metadataObject[ "attribution"] = attribution;
+                metadataObject["logo"] = logoUrl;
+
                 if(itemEditorId ==="") {
                     //Create a new item
-
-                    apiAddItem("%item-editor-collection-id%",{
-                            "label": label,
-                            "description": description,
-                            "attribution": attribution,
-                            "logo": logoUrl
-                        },
+                    apiAddItem("%item-editor-collection-id%",
+                        metadataObject,
                         function () {
                             $("#item-editor").remove();
                             update();
@@ -61,12 +89,7 @@
                         function () {
                         })
                 }else{
-                     apiUpdateItem(itemEditorId,{
-                            "label": label,
-                            "description": description,
-                            "attribution": attribution,
-                            "logo": logoUrl
-                        },
+                     apiUpdateItem(itemEditorId, metadataObject,
                         function () {
                             $("#item-editor").remove();
                             update();
@@ -74,8 +97,11 @@
                         function () {
                         })
                 }
-
-
             });
+            //Add Annotation Button
+             $("#add-annotation-button").on("click",function(){
+                 $("#annotation-grid").append("<input id='annotation-label-"+annotationsCounter.toString()+"' placeholder='label' style='margin-bottom: 10px; margin-right: 10px'><input id='annotation-value-"+annotationsCounter.toString()+"' placeholder='value' >");
+                 annotationsCounter++;
+             });
 
         </script>
