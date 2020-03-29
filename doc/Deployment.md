@@ -25,6 +25,18 @@ The Container `tiangolo/uwsgi-nginx-flask` Provides an NGINX-Server and Python w
 
 ## Build Process
 
+### Required Packages
+
+flask
+
+flask-httpauth
+
+flask-iiif
+
+passlib
+
+couchDB
+
 
 
 ## Updates
