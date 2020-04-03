@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/mirador-combined.min.css">
 
     <script src="js/api/api.js" type="text/javascript"></script>
+    <script src="js/api/items.js" type="text/javascript"></script>
     <script src="js/api/collections.js" type="text/javascript"></script>
 
     <title>Zenetti</title>
@@ -30,23 +31,31 @@
 
         var myMiradorInstance;
 
-
-        var test_key;
-        var test_value;
-
-        function create_annotation(self, new_annotation){
-            console.log("annotation created");
-            // value
-            console.log(new_annotation);
-            test_value = new_annotation;
+        function saveAnnotations(newAnnotation){
             // key
-            console.log(new_annotation.on[0].full);
-            test_key = new_annotation.on[0].full;
+            var  imageKey = newAnnotation.on[0].full;
+            //extract imageId
+            var imageId = (imageKey.split("/")[imageKey.split("/").length-1]).split(".")[0]
+            //load all annotation for image from local storage
+            var annotationsData = JSON.parse(localStorage.getItem(imageKey));
+
+            // save annotations to server
+            apiUpdateAnnotations(imageId, annotationsData, function () {
+                console.log("saved annotations");
+            },function () {
+
+            });
         }
 
-        function update_annotation(self, new_annotation){
+        function create_annotation(self, newAnnotation){
+            console.log("annotation created");
+            saveAnnotations(newAnnotation);
+
+        }
+
+        function update_annotation(self, newAnnotation){
             console.log("annotation update");
-            console.log(new_annotation);
+            saveAnnotations(newAnnotation);
         }
 
         var open_windows = []
@@ -79,6 +88,7 @@
         // für jede Seite eines Albums wird ein key in den local storage gespeichert (key ist für alle annotationen auf
         // der Seite gleich und kann in der Rückgabe des "new annotation events" ausgelesen werden); Der dazugehörige
         // value ist ein stringified array aller annotationsobjekte
+        /*
         function write_storage(){
             console.log("set storage");
             var list = [];
@@ -87,6 +97,7 @@
                 localStorage.setItem(test_key, JSON.stringify(list));
             }
         }
+        */
 
         var collectionId = '2fc86d90-9633-4e9a-9297-664f3c9723c5';
         apiGetCollection(collectionId, function(collection){
@@ -96,6 +107,17 @@
                 manifestUris.push(
                  { "manifestUri": "http://localhost:4000/data/"+collectionId+"/"+collection["items"][i], "location": "University of Regensburg"}
                 );
+                //load annotations to local storage
+                apiGetAnnotations(collectionId, collection["items"][i], function(annotationsData){
+                    console.log(annotationsData);
+                    for(var key in annotationsData){
+
+                        localStorage.setItem(key, JSON.stringify(annotationsData[key]));
+                    }
+
+                }, function(){
+                });
+
             }
 
             myMiradorInstance = new Mirador({

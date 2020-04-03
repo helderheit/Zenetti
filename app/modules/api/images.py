@@ -74,12 +74,27 @@ def upload_images(collection_id, item_id):
         img = Image.open(image_bytes)
         size = img.size
 
-        #create image object in database
+        # create image object in database
         image = images.add_image(extension, path, size[0], size[1])
         # add image to item
         items.add_image_to_item(item_id, image["_id"])
 
-        file.save(os.path.join("webapp/data/" + collection_id + "/" + item_id, image["_id"] +"."+extension))
+        file.save(os.path.join("webapp/data/" + collection_id + "/" + item_id, image["_id"] + "." + extension))
     resp = jsonify({'message': 'File successfully uploaded'})
     resp.status_code = 201
     return resp
+
+
+@api.api_blueprint.route('images/<image_id>/annotations', methods=['POST'])
+def update_annotations(image_id):
+    data = request.json
+    attributes = ["annotations"]
+    attribute_missing = check_attributes(data, attributes)
+    if attribute_missing:
+        return jsonify(attribute_missing), 422
+
+    success = images.update_annotations(image_id, data["annotations"])
+    if success:
+        return jsonify(success), 200
+    else:
+        return jsonify({"error": "Could update annotations for image"}), 409

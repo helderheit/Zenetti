@@ -3,6 +3,7 @@ from modules.api import api
 
 from modules.database import items
 from modules.database import collections
+from modules.database import images
 
 from modules.api.api import check_attributes
 
@@ -87,3 +88,17 @@ def update_item(item_id):
         return jsonify(success), 200
     else:
         return jsonify({"error": "Could not update item " + item_id}), 409
+
+
+@api.api_blueprint.route("/<collection_id>/<item_id>/annotations.json")
+def get_annotations(collection_id, item_id):
+    annotations_json = {}
+    item = items.get_item(item_id)
+    first_image_id = ""
+    for image_id in item["images"]:
+        if first_image_id == "":
+            first_image_id = image_id
+            image = images.get_image(image_id)
+            annotations_json["http://localhost:4000/data/" + collection_id + "/" +
+                             item_id + "/" + image_id + ".json"] = image["annotations"]
+    return jsonify(annotations_json), 200

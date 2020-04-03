@@ -91,3 +91,41 @@ function apiUploadImage(file, onSuccess, onError){
             }
         });
 }
+
+
+function apiGetAnnotations(collectionId, itemId, onSuccess, onError){
+  // Get a collection from the api and hand it over to onSuccess Callback
+    $.ajax
+    ({
+      type: "GET",
+      url: API_URL_PREFIX+collectionId+"/"+itemId +"/annotations.json",
+      contentType : 'application/json',
+      async: true,
+      success: function(data){
+        onSuccess(data);
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}
+
+function apiUpdateAnnotations(imageId, annotations, onSuccess, onError){
+        $.ajax({
+            url: API_URL_PREFIX + "images/" + imageId + "/annotations",
+            type: "POST",
+            contentType: 'application/json',
+            async: true,
+            data: JSON.stringify({"annotations":annotations}),
+            success: function () {
+                onSuccess();
+            },
+            error: onError,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Basic " +
+                    btoa(sessionStorage["token"] + ":" + ""));
+            }
+        });
+}

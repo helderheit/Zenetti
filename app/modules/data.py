@@ -32,10 +32,9 @@ def get_image(collection, item, uuid, region, size, rotation, quality):
 def get_image_info(collection, item, uuid):
     image = images.get_image(uuid)
 
-
     data = {
         "@context": "http://iiif.io/api/image/2/context.json",
-        "@id": "http://localhost:4000/data/"+collection + "/"+item+"/"+uuid,
+        "@id": "http://localhost:4000/data/" + collection + "/" + item + "/" + uuid,
         "protocol": "http://iiif.io/api/image",
         "width": image["meta"]["width"],
         "height": image["meta"]["height"],
@@ -61,26 +60,31 @@ def get_image_info(collection, item, uuid):
 
 
 def generate_image_in_manifest(collection_id, item_id, image_object):
-    image_json = {"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]+".json",
-          "@type": "sc:Canvas",
-          "label": "",
-          "width": image_object["meta"]["width"],
-          "height": image_object["meta"]["height"],
-          "images": [{"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]+".json",
-                      "@type": "oa:Annotation",
-                      "motivation": "sc:painting",
-                      "on": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]+".json",
-                      "resource": {"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"],
-                                   "@type": "dctypes:Image",
-                                   "format": "image/jpeg",
-                                   "width": image_object["meta"]["width"],
-                                   "height": image_object["meta"]["height"],
-                                   "service": {"@context": "http://iiif.io/api/image/2/context.json",
-                                               "profile": "http://iiif.io/api/image/2/level1.json",
-                                               "@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+image_object["_id"]}}}]
-          }
+    image_json = {
+        "@id": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + image_object["_id"] + ".json",
+        "@type": "sc:Canvas",
+        "label": "",
+        "width": image_object["meta"]["width"],
+        "height": image_object["meta"]["height"],
+        "images": [
+            {"@id": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + image_object["_id"] + ".json",
+             "@type": "oa:Annotation",
+             "motivation": "sc:painting",
+             "on": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + image_object["_id"] + ".json",
+             "resource": {
+                 "@id": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + image_object["_id"],
+                 "@type": "dctypes:Image",
+                 "format": "image/jpeg",
+                 "width": image_object["meta"]["width"],
+                 "height": image_object["meta"]["height"],
+                 "service": {"@context": "http://iiif.io/api/image/2/context.json",
+                             "profile": "http://iiif.io/api/image/2/level1.json",
+                             "@id": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + image_object[
+                                 "_id"]}}}]
+    }
 
     return image_json
+
 
 @data_blueprint.route("/data/<collection_id>/<item_id>")
 def get_manifest(collection_id, item_id):
@@ -93,36 +97,36 @@ def get_manifest(collection_id, item_id):
             first_image_id = image_id
         image_json.append(generate_image_in_manifest(collection_id, item_id, images.get_image(image_id)))
 
-
-
     manifest = {
-      "@context": "http://iiif.io/api/presentation/2/context.json",
-      "@id": "http://localhost:4000/"+collection_id+"/"+item_id,
-      "@type": "sc:Manifest",
-      "attribution": item["meta"]["attribution"],
-      "metadata": item["metadata"],
-      "label": item["meta"]["label"],
-      "logo": item["meta"]["logo"],
-      "service": {
-        "@context": "http://iiif.io/api/search/1/context.json",
-        "@id": "http://exist.scta.info/exist/apps/scta/iiif/pg-lon/search",
-        "profile": "http://iiif.io/api/search/1/search",
-        "label": "Search within this manifest"
+        "@context": "http://iiif.io/api/presentation/2/context.json",
+        "@id": "http://localhost:4000/" + collection_id + "/" + item_id,
+        "@type": "sc:Manifest",
+        "attribution": item["meta"]["attribution"],
+        "metadata": item["metadata"],
+        "label": item["meta"]["label"],
+        "logo": item["meta"]["logo"],
+        "service": {
+            "@context": "http://iiif.io/api/search/1/context.json",
+            "@id": "http://exist.scta.info/exist/apps/scta/iiif/pg-lon/search",
+            "profile": "http://iiif.io/api/search/1/search",
+            "label": "Search within this manifest"
         },
-      "rendering": {
-        "@id": "http://localhost:4000/",
-        "format": "text/html",
-        "label": "Full record view"
-      },
-      "sequences": [{"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+first_image_id+".json",
+        "rendering": {
+            "@id": "http://localhost:4000/",
+            "format": "text/html",
+            "label": "Full record view"
+        },
+        "sequences": [
+            {"@id": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + first_image_id + ".json",
              "@type": "sc:Sequence",
              "label": "Default",
              "canvases": image_json}],
-      "thumbnail": {"@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+first_image_id+"/full/,200/0/default",
-                    "service": {"@context": "http://iiif.io/api/image/2/context.json",
-                                "@id": "http://localhost:4000/data/"+collection_id+"/"+item_id+"/"+first_image_id,
-                                "profile": "http://iiif.io/api/image/2/level2.json"}},
-      "within": "http://localhost:4000/"
+        "thumbnail": {
+            "@id": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + first_image_id + "/full/,200/0/default",
+            "service": {"@context": "http://iiif.io/api/image/2/context.json",
+                        "@id": "http://localhost:4000/data/" + collection_id + "/" + item_id + "/" + first_image_id,
+                        "profile": "http://iiif.io/api/image/2/level2.json"}},
+        "within": "http://localhost:4000/"
     }
 
     return jsonify(manifest), 200
