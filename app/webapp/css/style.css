@@ -53,6 +53,11 @@ h2{
     color: var(--light);
     cursor: pointer;
 }
+#app-logo{
+    height: 100%;
+    float: left;
+    margin-left: 1%;
+}
 #viewer{
     position: fixed;
     float: left;
