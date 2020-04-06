@@ -1,0 +1,44 @@
+<span class = "user-data-item">%username%</span>
+<span class = "user-data-item">%name%</span>
+<span class = "user-data-item">%admin%</span>
+<span class = "user-data-item">%master%</span>
+<span class = "user-data-item">%change-password%</span>
+<span class = "user-data-item">
+    <button id="remove-user-%username%">Remove</button>
+    <button id="edit-user-%username%">Edit</button>
+</span>
+
+<script type="text/javascript">
+    var username = "%username%";
+    if("%master%" === "true"){
+        $("#edit-user-"+username).remove();
+    }
+
+
+    $("#remove-user-%username%").on("click",function(){
+        loadTemplate("templates/confirm.html", function (template) {
+
+            template= replaceParameter(template,"%confirm-id%", "%username%");
+            template = replaceParameter(template,"%confirm-title%", "Remove user");
+            template = replaceParameter(template,"%confirm-text%", "Do you really want to remove the user?");
+            template = replaceParameter(template,"%confirm-confirm%", "Remove");
+            template = replaceParameter(template,"%confirm-cancel%", "Cancel");
+            $("body").append(template);
+
+            $("#confirm-button-%username%").on("click",function(){
+               apiRemoveUser("%username%", function(){
+                   $(".confirm-background").remove();
+                   update();
+               }, function(){});
+            });
+
+        });
+    });
+
+    $("#edit-user-%username%").on("click",function(){
+        loadTemplate("templates/user-editor.html", function (template) {
+            template = replaceParameter(template,"%user-editor-id%","%username%");
+            $("body").append(template);
+        });
+    });
+</script>

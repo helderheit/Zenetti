@@ -6,6 +6,9 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/editor.css">
+
+
     <script src="js/lib/jquery.min.js" type="text/javascript"></script>
     <script src="js/api/api.js" type="text/javascript"></script>
 
@@ -18,63 +21,19 @@
         <script type="text/javascript">
             $("header").load( "templates/header_bar.html" );
         </script>
-         <div class="editor-background" id="user-editor">
-             <div class="editor">
-                 <div class="border">
-                     <div class="editor-label">Add User</div>
-                     <div class="editor-grid">
-                         <span>Username:</span><input id="username_in">
-                         <span>Name:</span><input id="name_in">
-                         <span>Password:</span><input id="password_in">
-                         <span>Change Password:</span><div class ="checkbox" id="change_password_in"></div>
-                         <span>Admin:</span><div class ="checkbox" id="admin_in"></div>
-                     </div>
-                     <div class="editor-button">
-                         <button id="add_user_confirm_button">Add User</button>
-                         <button id="cancel_button">Cancel</button>
-                     </div>
-                 </div>
-            </div>
-             <script>
-                 $("#cancel_button").on("click",function(){
-                     $("#user-editor").hide();
-                 });
-                 $("#add_user_confirm_button").on("click",function(){
-                     console.log("Add User");
-                     var username= $("#username_in").val();
-                     var name = $("#name_in").val();
-                     var password = $("#password_in").val();
-                     var change_password = false;
-                     if($("#change_password_in").hasClass("checked")){
-                         change_password = true;
-                     }
-                     var admin = false;
-                     if($("#admin_in").hasClass("checked")){
-                         admin = true;
-                     }
-                     console.log(username, name, password, change_password, admin );
-                     apiAddUser({"username":username, "name":name,"password":password, "change_password":change_password,"admin":admin},
-                     function(){
-                         console.log("added user");
-                         $("#user-editor").hide();
-                         loadUserData();
-                     }, function(data){
-                        console.log(data);
-                     });
-                 });
-             </script>
-         </div>
+
         <div class="page-content">
 
             <h2>Administration</h2>
             <div class="toolbar">
                 <div class="toolbar-content">
-                    <span>Tools</span>
-                    <button id="add_user_button">Add User</button>
+                    <button id="add-user-button">Add User</button>
                     <script type="text/javascript">
-                        $("#add_user_button").on("click", function(){
-                             $("#user-editor").show();
-                            //$("#editor-background").load( "templates/user_editor.html" );
+                        $("#add-user-button").on("click", function(){
+                            loadTemplate("templates/user-editor.html", function (template) {
+                                        template = replaceParameter(template,"%user-editor-id%","");
+                                        $("body").append(template);
+                            });
                         });
                     </script>
                 </div>
@@ -127,7 +86,7 @@
                     confirmButton.on("click", function(){
                         apiRemoveUser(username,function(){
                             confirmBackground.remove();
-                            loadUserData();
+                            update();
                         },function () {
                             //TODO
                         })
@@ -136,42 +95,23 @@
                 }
 
 
-                function loadUserData() {
+                function update() {
                     apiGetUsers(function (users) {
                         $(".user-data-item").remove();
-                        for (var i in users) {
-                            function createDataItem() {
-                                var item = $("<span></span>");
-                                item.addClass("user-data-item");
-                                return item;
-                            }
-                            var dataItem = createDataItem();
-
-                            dataItem.html(users[i].username);
-                            $(".user-table").append(dataItem);
-                            dataItem = createDataItem();
-                            dataItem.html(users[i].name);
-                            $(".user-table").append(dataItem);
-                            dataItem = createDataItem();
-                            dataItem.html(users[i].admin.toString());
-                            $(".user-table").append(dataItem);
-                            dataItem = createDataItem();
-                            dataItem.html(users[i].master.toString());
-                            $(".user-table").append(dataItem);
-                            dataItem = createDataItem();
-                            dataItem.html(users[i].change_password.toString());
-                            $(".user-table").append(dataItem);
-                            dataItem = createDataItem();
-                            var buttons = "<button>Edit</button>"
-                            if(!users[i].master){
-                                buttons = buttons +"<button onClick='removeUser(\""+users[i].username+"\")'>Remove</button>";
-                            }
-                            dataItem.html(buttons);
-                            $(".user-table").append(dataItem);
-                        }
+                              loadTemplate("templates/user-item.html", function (template) {
+                                    for (var i in users) {
+                                             var row = template;
+                                             row = replaceParameter(row, "%username%", users[i]["username"]);
+                                             row = replaceParameter(row, "%name%", users[i]["name"]);
+                                             row = replaceParameter(row, "%admin%", users[i]["admin"].toString());
+                                             row = replaceParameter(row, "%master%", users[i]["master"].toString());
+                                             row = replaceParameter(row, "%change-password%", users[i]["change_password"].toString());
+                                             $(".user-table").append(row);
+                                    }
+                            });
                     });
                 }
-                loadUserData();
+                update();
             </script>
 
         </div>

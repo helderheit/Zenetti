@@ -121,6 +121,26 @@ function apiGetUsers(onSuccess, onError){
   });
 }
 
+function apiGetUser(username, onSuccess, onError){
+  // Gets a users from the api and hands it over to onSuccess Callback
+    $.ajax
+    ({
+      type: "GET",
+      url: API_URL_PREFIX+"users/"+username,
+      contentType : 'application/json',
+      async: true,
+
+      success: function(data){
+        onSuccess(data);
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}
+
 
 function apiAddUser(data, onSuccess, onError){
   // Adds a user
@@ -142,6 +162,25 @@ function apiAddUser(data, onSuccess, onError){
   });
 }
 
+function apiUpdateUser(data, onSuccess, onError){
+  // Updates a user
+    $.ajax
+    ({
+      type: "PUT",
+      url: API_URL_PREFIX+"users",
+      contentType : 'application/json',
+      async: true,
+      data:JSON.stringify(data),
+      success: function(){
+        onSuccess();
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}
 function apiRemoveUser(username, onSuccess, onError){
   // Removes a user
     $.ajax
