@@ -1,0 +1,96 @@
+ <!--User editor for adding and updating items-->
+        <div class="editor-background" id="user-editor">
+             <div class="editor">
+                 <div class="border">
+                             <div class="editor-label">Add User</div>
+                             <div class="editor-grid">
+                                 <span>Username:</span><input id="username-in">
+                                 <span>Name:</span><input id="name-in">
+                                 <span>Password:</span><input id="password-in">
+                                 <span>Change Password:</span><div class ="checkbox" id="change-password-in"></div>
+                                 <span>Admin:</span><div class ="checkbox" id="admin-in"></div>
+                             </div>
+                             <div class="editor-button">
+                                 <button id="add-user-confirm-button">Save</button>
+                                 <button id="cancel-button">Cancel</button>
+                             </div>
+                 </div>
+            </div>
+        </div>
+        <script>
+
+            var userId = "%user-editor-id%";
+            console.log(userId)
+            if(userId!=="") {
+                //load user data
+                apiGetUser(userId, function (userData) {
+                    $("#username-in").val(userData["username"]);
+                    //TODO
+                    $("#username-in").attr("disabled","true");
+                    $("#name-in").val(userData["name"]);
+
+                    if(userData["admin"]){
+                        $("#admin-in").addClass("checked");
+                    }
+                    if(userData["change_password"]){
+                        $("#change-password-in").addClass("checked");
+                    }
+                }, function() {
+
+                });
+            }
+            $("#cancel-button").on("click",function(){
+                $("#user-editor").remove();
+            });
+
+
+
+            $("#add-user-confirm-button").on("click",function(){
+                    var username = $("#username-in").val();
+                    var name = $("#name-in").val();
+                    var password = $("#password-in").val();
+                    var change_password = false;
+                    if ($("#change-password-in").hasClass("checked")) {
+                        change_password = true;
+                    }
+                    var admin = false;
+                    if ($("#admin-in").hasClass("checked")) {
+                        admin = true;
+                    }
+                    if(userId===""){
+                        apiAddUser({
+                            "username": username,
+                            "name": name,
+                            "password": password,
+                            "change_password": change_password,
+                            "admin": admin
+                            },
+                            function () {
+                                $("#user-editor").remove();
+                            update();
+                            }, function (data) {
+                            });
+                    }else{
+                        apiUpdateUser({
+                            "username": username,
+                            "name": name,
+                            "password": password,
+                            "change_password": change_password,
+                            "admin": admin
+                            },
+                            function () {
+                                $("#user-editor").remove();
+                            update();
+                            }, function (data) {
+                                console.log(data);
+                            });
+                    }
+                });
+        $(".checkbox").on("click", function(){
+            if($(this).hasClass("checked")){
+                $(this).removeClass("checked");
+            }else{
+                $(this).addClass("checked");
+            }
+        });
+        </script>

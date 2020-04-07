@@ -14,7 +14,7 @@
 
 ## Collection
 
-A **Collection** manages associated **Items** an provides accumulated rights-managment.
+A **Collection** manages associated **items** an provides accumulated rights-managment.
 
 
 

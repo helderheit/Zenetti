@@ -1,11 +1,3 @@
-$(".checkbox").on("click", function(){
-    if($(this).hasClass("checked")){
-        $(this).removeClass("checked");
-    }else{
-        $(this).addClass("checked");
-    }
-});
-
 function loadTemplate(url, onSuccess){
       $.ajax({
             url: url,

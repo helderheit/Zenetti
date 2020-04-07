@@ -1,88 +1,124 @@
 # Administration
 
+## User Object
 
+```json
+{
+    "username": [String], 	// unique username
+    "name": [String], 		//displayed name of the user
+    "password": [String],   //hashed password
+    "admin": [Boolean],		
+    "change_password": [Boolean]	//if this is true, the user is forced to change the password on login
+}
+```
 
 ## Add User
 
 > **[POST]** api/1.0/users
 
-Requires:
+### Required fields
 
-- username
-- name
-- password
-- admin
-- change_password
+```json
+{
+    "username": [String],
+    "name": [String],
+    "password": [String],
+    "admin": [Boolean],
+    "change_password": [Boolean]
+}
+```
 
-*Status Codes:*
+### Status Codes
 
 - **200** *Added user*
 - **409** *Could not add user*
 - **422** *Missing field*
-- **403** *Access denied*
+- **401** *Access denied*
+
+### Access
+
+- admin users
 
 ## Edit User
 
 > **[PUT]** api/1.0/users
 
-Requires:
+### Required fields
 
-- username
-- name
-- password
-- admin
-- change_password
+```json
+{
+    "username": [String],
+    "name": [String],
+    "password": [String],
+    "admin": [Boolean],
+    "change_password": [Boolean]
+}
+```
 
-*Status Codes:*
+### Status Codes
 
 - **200** *Updated user*
 - **409** *Could not update user*
 - **422** *Missing field*
-- **403** *Access denied*
+- **401** *Access denied*
+
+### Access
+
+- admin users
+- users can get change their own account information
+
+### Notes
+
+If `password` is an empty string, the old password will not be updated
 
 ## Remove User
 
-> **[DELETE]** api/1.0/users/USERNAME
+> **[DELETE]** api/1.0/users/`username`
 
-*Status Codes:*
+### Status Codes
 
 - **200** *Removed user*
 - **409** *Could not remove user*
-- **403** *Access denied*
+- **401** *Access denied*
+
+### Access
+
+- admin users
 
 ## Get Users
 
 > **[GET]** api/1.0/users
 
-Returns a list of users containing:
+### Returns
 
-- username
-- name
-- admin
-- master
-- change_password
+ a list of user objects
 
-*Status Codes:*
+### Status Codes
 
 - **200** 
 - **409** *Could not get users*
-- **403** *Access denied*
+- **401** *Access denied*
+
+### Access
+
+- admin user
 
 ## Get User
 
-> **[GET]** api/1.0/users/USERNAME
+> **[GET]** api/1.0/users/`username`
 
-Returns:
+### Returns
 
-- username
-- name
-- admin
-- master
-- change_password
+ a user object
 
 *Status Codes:*
 
 - **200** 
 - **409** *Could not get user*
-- **403** *Access denied*
+- **401** *Access denied*
+
+### Access
+
+- admin users
+- users can get their own account information
 

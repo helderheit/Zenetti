@@ -4,18 +4,6 @@ from modules.api import api
 from modules.database import users
 
 
-@api.api_blueprint.route("users", methods=["GET"])
-@api.auth.login_required
-def get_users():
-    """get a list of users from the database"""
-    if g.user.admin:
-        data = users.get_users()
-        if data:
-            return jsonify(data), 200
-        else:
-            return jsonify({"error": "Could get users"}), 409
-    else:
-        return jsonify({"error": "Access denied"}), 401
 @api.api_blueprint.route("users", methods=["POST"])
 @api.auth.login_required
 def add_user():
@@ -37,7 +25,7 @@ def add_user():
             # only the master-user is allowed to create admins
             data["admin"] = False
         success = users.add_user(data["username"], data["name"], data["password"], data["admin"],
-                                    data["change_password"])
+                                 data["change_password"])
         if success:
             return jsonify({"ok": "Added user " + data["username"]}), 200
         else:
@@ -74,7 +62,7 @@ def update_user():
             data["admin"] = False
 
         success = users.update_user(data["username"], data["name"], data["password"], data["admin"],
-                                       data["change_password"])
+                                    data["change_password"])
         if success:
             return jsonify({"ok": "Updated user " + data["username"]}), 200
         else:
@@ -96,3 +84,30 @@ def remove_user(username):
     else:
         return jsonify({"error": "Access denied"}), 401
 
+
+@api.api_blueprint.route("users", methods=["GET"])
+@api.auth.login_required
+def get_users():
+    """get a list of users from the database"""
+    if g.user.admin:
+        data = users.get_users()
+        if data:
+            return jsonify(data), 200
+        else:
+            return jsonify({"error": "Could get users"}), 409
+    else:
+        return jsonify({"error": "Access denied"}), 401
+
+
+@api.api_blueprint.route("users/<username>", methods=["GET"])
+@api.auth.login_required
+def get_user(username):
+    """get a user from the database"""
+    if g.user.admin or g.user.username == username:
+        user = users.get_user(username)
+        if user:
+            return jsonify(user.to_dict()), 200
+        else:
+            return jsonify({"error": "Could get user"}), 409
+    else:
+        return jsonify({"error": "Access denied"}), 401
