@@ -4,7 +4,7 @@
 
 ## User object
 
-```json
+```
 {
     "username": [String], 	// unique username
     "name": [String], 		//displayed name of the user
@@ -20,7 +20,7 @@
 
 ### Required fields
 
-```json
+```
 {
     "username": [String],
     "name": [String],
@@ -47,7 +47,7 @@
 
 ### Required fields
 
-```json
+```
 {
     "username": [String],
     "name": [String],

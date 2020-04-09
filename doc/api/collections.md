@@ -18,7 +18,7 @@
 
 A **Collection** manages associated **items** an provides accumulated rights-managment.
 
-```json
+```
 {
     "_id": [String], // Collection id
     "proto": "collection", 
@@ -75,7 +75,7 @@ A collection objects
 
 ### Required fields
 
-```json
+```
 {
     "label": [String],
     "description": [String],
@@ -105,7 +105,7 @@ A collection object
 
 ### Required fields
 
-```json
+```
 {
     "label": [String],
     "description": [String],

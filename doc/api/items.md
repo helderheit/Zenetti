@@ -8,7 +8,7 @@ The **Item** objects contains a sequence of references to **image**-objects.
 
 ### Item Object
 
-```json
+```
 {
     "_id": [String], // Item id
     "proto": "item", 
@@ -58,7 +58,7 @@ An item object
 
 ### Required fields
 
-```json
+```
 {
     "label": [String],
     "description": [String],
@@ -92,7 +92,7 @@ A item object
 
 ### Required fields
 
-```json
+```
 {
     "label": [String],
     "description": [String],

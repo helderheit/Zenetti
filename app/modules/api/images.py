@@ -13,6 +13,7 @@ from werkzeug.utils import secure_filename
 
 
 @api.api_blueprint.route("images/<image_id>", methods=["GET"])
+@api.auth.login_required
 def get_image(image_id):
     data = images.get_collection(image_id)
     if data:
@@ -23,6 +24,7 @@ def get_image(image_id):
 
 
 @api.api_blueprint.route("images/", methods=["POST"])
+@api.auth.login_required
 def add_image():
     """adds a image to the database"""
     data = request.json
@@ -44,18 +46,21 @@ def add_image():
 
 
 @api.api_blueprint.route("images/<image_id>", methods=["PUT"])
+@api.auth.login_required
 def update_image(image_id):
     # TODO
     return None
 
 
 @api.api_blueprint.route("images/<image_id>", methods=["DELETE"])
+@api.auth.login_required
 def remove_image(image_id):
     # TODO
     return None
 
 
 @api.api_blueprint.route('images/<collection_id>/<item_id>', methods=['POST'])
+@api.auth.login_required
 def upload_images(collection_id, item_id):
     files = request.files.getlist("files")
     # create directories
@@ -86,6 +91,7 @@ def upload_images(collection_id, item_id):
 
 
 @api.api_blueprint.route('images/<image_id>/annotations', methods=['POST'])
+@api.auth.login_required
 def update_annotations(image_id):
     data = request.json
     attributes = ["annotations"]
