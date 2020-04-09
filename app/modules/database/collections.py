@@ -37,7 +37,6 @@ def add_collection(label, description, attribution, logo):
         }
     }
     database.server[database.DATA_DB_NAME][data_id] = data
-    # TODO create data-folder
     return database.server[database.DATA_DB_NAME][data_id]
 
 

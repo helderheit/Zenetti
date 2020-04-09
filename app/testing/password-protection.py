@@ -21,6 +21,7 @@ def test_api_endpoint(method, url):
 server = "http://localhost:4000/"
 api_url_prefix = "api/1.0/"
 endpoints = [
+    # administration
     {
         "method": "post",
         "url": server + api_url_prefix + "users"
@@ -40,6 +41,27 @@ endpoints = [
     {
         "method": "get",
         "url": server + api_url_prefix + "users/test"
+    },
+    # collections
+    {
+        "method": "get",
+        "url": server + api_url_prefix + "collections"
+    },
+    {
+        "method": "get",
+        "url": server + api_url_prefix + "collections/test"
+    },
+    {
+        "method": "post",
+        "url": server + api_url_prefix + "collections"
+    },
+    {
+        "method": "put",
+        "url": server + api_url_prefix + "collections/test"
+    },
+    {
+        "method": "delete",
+        "url": server + api_url_prefix + "collections/test"
     }
 
 ]

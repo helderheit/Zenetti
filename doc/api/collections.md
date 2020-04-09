@@ -1,6 +1,8 @@
 # Collections
 
-## Datastructure
+> modules/api/collections.py
+
+## Data structure
 
 ```
 + - - - - - - - - +                   + - - - - - - - - +                  + - - - - - - - - +
@@ -12,13 +14,9 @@
 
 
 
-## Collection
+## Collection object
 
 A **Collection** manages associated **items** an provides accumulated rights-managment.
-
-
-
-### Collection Object
 
 ```json
 {
@@ -35,145 +33,112 @@ A **Collection** manages associated **items** an provides accumulated rights-man
 }
 ```
 
-### Basic Functions
-
-#### Get Collection
+## Get collections
 
 > [GET] api/1.0/collections
 
-#### Get Collection
+### Returns
+
+A list of collection objects
+
+### Status Codes
+
+- **200**
+- **409** *Could not get collections*
+- **401** *Access denied*
+
+### Access
+
+- basic protection
+
+## Get collection
 
 >[GET] api/1.0/collections/`colletion_id`
 
-#### Add Collection
+### Returns
+
+A collection objects
+
+### Status Codes
+
+- **200**
+- **409** *Could not get collection*
+- **401** *Access denied*
+
+### Access
+
+- basic protection
+
+## Add collection
 
 >[POST] api/1.0/collections
 
-#### Update Collection
+### Required fields
+
+```json
+{
+    "label": [String],
+    "description": [String],
+    "attribution": [String],
+    "logo": [String], // url to a logo image
+}
+```
+
+### Returns 
+
+A collection object
+
+### Status Codes
+
+- **200** 
+- **409** *Could not add user*
+- **422** *Missing field*
+- **401** *Access denied*
+
+### Access
+
+- basic protection
+
+## Update collection
 
 >[PUT] api/1.0/collections/`collection_id`
 
-## Item
-
-An **Item** is the  representations of an image-sequence, for example a scanned book or diary. It is basis for dynamic creation of IIIF-manifest-json-files.
-
-The **Item** objects contains a sequence of refereneces to **Image**-objects. 
-
-### Item Object
+### Required fields
 
 ```json
 {
-    "_id": [String], // Item id
-    "proto": "item", 
-    "owner": [String], // Username of the owner of the Item, full rights
-    "read": [], // List of Usernames with read permission
-    "annotate": [], // List of Usernames with permission to annotate the item
-    "edit": [], // List of Usernames with permission to edit
-    			//the structure of the document, to add, remove and crop images etc.
-    "images": [], // refences to Image-Objects
-    "meta": { //IIIF-Metadata
-        "attribution": [String], //Institution
-        "logo": [String], //Url to an image-file
-        "label": [String],
-        "description", [String]
-    },
-    "metadata": [ //Annotated Metdata for the item
-        {
-         "label": [String],
-         "value": [String]
-        }
-    ],
-    "thumbnail", [String] // reference of image object used as thumbnail
+    "label": [String],
+    "description": [String],
+    "attribution": [String],
+    "logo": [String], // url to a logo image
 }
 ```
 
-----
+### Returns 
 
-### Basic Functions
+A collection object
 
-#### Get Item
+### Status Codes
 
-> [GET] api/1.0/item/`item_id`
+- **200** 
+- **409** *Could not add user*
+- **422** *Missing field*
+- **401** *Access denied*
 
-#### Add Item
+### Access
 
-> [GET] api/1.0/item/`collection_id`
+- basic protection
 
-#### Remove Item
+## Remove collection
 
-> [DELETE] api/1.0/item/`collection_id`/`item_id`
+> [Delete] api/1.0/collections/`collection_id`
 
-#### Update Item
+### Status Codes
 
-> [PUT] api/1.0/item/`item_id`
+- **200** *Removed collection*
+- **409** *Could not remove collection*
+- **401** *Access denied*
 
-----
+### Access
 
-### Rights-Managment
-
-#### Update Owner
-
->TODO
-
-#### Add Contributor
-
-> TODO
-
-#### Remove Contributor
-
-> TODO
-
-----
-
-## Image
-
-### The image Object
-
-```json
-{
-    "_id": [String], // Image id
-    "file-extension": [String],
-    "path": [String], //full path to th image file in the data directory
-    "proto": "image", 
-    "owner": [String], // Username of the owner of the image, full rights
-    "meta": { //IIIF-Metadata
-        "width": [Integer]
-        "height": [Integer]
-    	"crop": {
-            "crop-width": [Integer]
-            "crop-height": [Integer]
-            "crop-x": [Integer],
-            "crop-y": [Integer],
-            "rotation": [Float]
-		}
-    },
-	"metadata": [//Annotated Metdata
-        ]
-}
-```
-
-
-
-### Basic Functions
-
-#### Get Image
-
-> [GET] api/1.0/images/`image_id`
-
-#### Add Image
-
-> [POST] api/1.0/images
-
-#### Remove Image
-
->TODO
-
-#### Update Image
-
-> TODO
-
-#### Update Crop
-
-
-
-> TODO
+- basic protection

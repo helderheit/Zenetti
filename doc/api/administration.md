@@ -1,6 +1,8 @@
 # Administration
 
-## User Object
+> modules/api/administration.py
+
+## User object
 
 ```json
 {
@@ -111,7 +113,7 @@ If `password` is an empty string, the old password will not be updated
 
  a user object
 
-*Status Codes:*
+### Status Codes
 
 - **200** 
 - **409** *Could not get user*
