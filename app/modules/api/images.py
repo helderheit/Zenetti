@@ -71,6 +71,7 @@ def upload_images(collection_id, item_id):
         print(file.filename)
         filename = secure_filename(file.filename)
         extension = filename.split('.')[-1]
+        extension = extension.lower()
         path = collection_id + "/" + item_id
 
         image_bytes = BytesIO(file.stream.read())

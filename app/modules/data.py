@@ -15,10 +15,12 @@ data_blueprint = Blueprint("data", __name__)
 @data_blueprint.route("/data/<collection>/<item>/<uuid>/<region>/<size>/<rotation>/<quality>", methods=["GET"])
 @api.auth.login_required
 def get_image(collection, item, uuid, region, size, rotation, quality):
+
     quality = quality.replace(".jpg", "")
     quality = quality.replace(".tif", "")
     quality = quality.replace(".png", "")
-    image = IIIFImageAPIWrapper.from_file("webapp/data/" + collection + "/" + item + "/" + uuid + ".tif")
+    file_extension = images.get_image(uuid)["file-extension"]
+    image = IIIFImageAPIWrapper.from_file("webapp/data/" + collection + "/" + item + "/" + uuid + "."+file_extension)
     image.apply_api(
         region=region,
         size=size,

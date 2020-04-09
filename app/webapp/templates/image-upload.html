@@ -5,9 +5,8 @@
                      <form id="upload" action="" method="POST" enctype="multipart/form-data">
                          <div class="editor-label">Upload Images</div>
                             <div>
-                                <label for="fileselect">Files to upload:</label>
-                                <input type="file" id="fileselect" name="files" multiple="multiple">
-                                <div id="filedrag">or drop files here</div>
+                                <label for="fileselect" class="dropzone">Click or drop files here.</label>
+                                <input type="file" id="fileselect" class="" name="files" multiple="multiple">
                             </div>
                          <div class="editor-button">
                              <button id="upload-button" type="submit">Upload</button>
@@ -41,6 +40,32 @@
                     $("#upload-editor").remove();
                 }
             });
+
+            function previewImages() {
+
+                var $preview = $('.dropzone').empty();
+
+                if (this.files) $.each(this.files, readAndPreview);
+
+                function readAndPreview(i, file) {
+
+                    if (!/\.(jpe?g|png|gif|tif|tiff)$/i.test(file.name)){
+                      return alert(file.name +" is not an image");
+                    } // else...
+
+                    var reader = new FileReader();
+
+                    $(reader).on("load", function() {
+                      $preview.append($("<img/>", {src:this.result, height:100}));
+                    });
+
+                    reader.readAsDataURL(file);
+
+                    }
+
+                }
+
+            $('#upload').on("change", previewImages);
         });
 
 

@@ -14,12 +14,15 @@
 .collection-header, .item-header{
     padding: 5px;
     padding-bottom: 20px;
-;
+
 }
 
 .collection-label > a, .item-label >a {
     font-size: 20px;
-    text-decoration: underline;
+    text-decoration: none;
+    color: var(--theme);
+    margin-top: 3px;
+    position: absolute;
 }
 .collection-header > button, .item-header > button{
     float: right;
@@ -41,6 +44,8 @@
     padding: 10px;
     margin-bottom: 20px;
     overflow-y: auto;
+    position: relative;
+    box-sizing: border-box;
 }
 
 .file-preview{
@@ -53,4 +58,16 @@
     background-color: var(--light-accent);
     padding: 5px;
     margin-bottom: 10px;
+}
+
+
+
+input[type="file"] {
+    margin-top: -210px;
+    position: absolute;
+    border: none;
+    margin-left: 10px;
+    width: 48.5%;
+    height: 180px;
+
 }
