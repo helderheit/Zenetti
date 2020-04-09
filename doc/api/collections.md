@@ -91,7 +91,7 @@ A collection object
 ### Status Codes
 
 - **200** 
-- **409** *Could not add user*
+- **409** *Could not add collection*
 - **422** *Missing field*
 - **401** *Access denied*
 
@@ -121,7 +121,7 @@ A collection object
 ### Status Codes
 
 - **200** 
-- **409** *Could not add user*
+- **409** *Could not update collection*
 - **422** *Missing field*
 - **401** *Access denied*
 

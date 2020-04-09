@@ -9,6 +9,7 @@ from modules.api.api import check_attributes
 
 
 @api.api_blueprint.route("items", methods=["GET"])
+@api.auth.login_required
 def get_items():
     """get a list of collections from the database"""
     data = items.get_items()
@@ -19,6 +20,7 @@ def get_items():
 
 
 @api.api_blueprint.route("items/<item_id>", methods=["GET"])
+@api.auth.login_required
 def get_item(item_id):
     """get a item from the database"""
     data = items.get_item(item_id)
@@ -38,6 +40,7 @@ def extract_metadata(data):
 
 
 @api.api_blueprint.route("items/<collection_id>", methods=["POST"])
+@api.auth.login_required
 def add_item(collection_id):
     """add a item to the database"""
     data = request.json
@@ -58,6 +61,7 @@ def add_item(collection_id):
 
 
 @api.api_blueprint.route("items/<collection_id>/<item_id>", methods=["DELETE"])
+@api.auth.login_required
 def remove_item(collection_id, item_id):
     """remove a item from the database"""
     success = items.remove_item(item_id)
@@ -69,6 +73,7 @@ def remove_item(collection_id, item_id):
 
 
 @api.api_blueprint.route("items/<item_id>", methods=["PUT"])
+@api.auth.login_required
 def update_item(item_id):
     """update an item"""
 
@@ -91,6 +96,7 @@ def update_item(item_id):
 
 
 @api.api_blueprint.route("/<collection_id>/<item_id>/annotations.json")
+@api.auth.login_required
 def get_annotations(collection_id, item_id):
     annotations_json = {}
     item = items.get_item(item_id)

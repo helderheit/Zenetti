@@ -62,7 +62,29 @@ endpoints = [
     {
         "method": "delete",
         "url": server + api_url_prefix + "collections/test"
+    },
+    #items
+    {
+        "method": "get",
+        "url": server + api_url_prefix + "items/test"
+    },
+    {
+        "method": "post",
+        "url": server + api_url_prefix + "items/test"
+    },
+    {
+        "method": "put",
+        "url": server + api_url_prefix + "items/test"
+    },
+    {
+        "method": "delete",
+        "url": server + api_url_prefix + "items/test/test"
+    },
+    {
+        "method": "get",
+        "url": server + api_url_prefix + "test/test/annotations.json"
     }
+
 
 ]
 

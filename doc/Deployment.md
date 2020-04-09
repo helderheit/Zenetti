@@ -37,7 +37,9 @@ passlib
 
 couchDB
 
+numpy
 
+opencv-python
 
 ## Updates
 

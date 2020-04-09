@@ -1,8 +1,10 @@
-## Item
+# Items
+
+## Item object
 
 An **Item** is the  representations of an image-sequence, for example a scanned book or diary. It is basis for dynamic creation of IIIF-manifest-json-files.
 
-The **Item** objects contains a sequence of refereneces to **Image**-objects. 
+The **Item** objects contains a sequence of references to **image**-objects. 
 
 ### Item Object
 
@@ -32,29 +34,106 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 }
 ```
 
-----
+## Get Item
 
-### Basic Functions
+> [GET] api/1.0/items/`item_id`
 
-#### Get Item
+### Returns
 
-> [GET] api/1.0/item/`item_id`
+An item object
 
-#### Add Item
+### Status Codes
 
-> [GET] api/1.0/item/`collection_id`
+- **200** 
+- **409** *Could not get item*
+- **401** *Access denied*
 
-#### Remove Item
+### Access
 
-> [DELETE] api/1.0/item/`collection_id`/`item_id`
+- basic protection
 
-#### Update Item
+## Add Item
 
-> [PUT] api/1.0/item/`item_id`
+> [GET] api/1.0/items/`collection_id`
 
-----
+### Required fields
 
-### Rights-Managment
+```json
+{
+    "label": [String],
+    "description": [String],
+    "attribution": [String],
+    "logo": [String], // url to a logo image
+}
+```
+
+### Returns 
+
+A item object
+
+### Status Codes
+
+- **200** 
+- **409** *Could not add item*
+- **422** *Missing field*
+- **401** *Access denied*
+
+### Access
+
+- basic protection
+
+## Remove Item
+
+> [DELETE] api/1.0/items/`collection_id`/`item_id`
+
+## Update Item
+
+> [PUT] api/1.0/items/`item_id`
+
+### Required fields
+
+```json
+{
+    "label": [String],
+    "description": [String],
+    "attribution": [String],
+    "logo": [String], // url to a logo image
+}
+```
+
+### Returns 
+
+A item object
+
+### Status Codes
+
+- **200** 
+- **409** *Could not update item*
+- **422** *Missing field*
+- **401** *Access denied*
+
+### Access
+
+- basic protection
+
+## Get Annotations
+
+> [GET] api/1.0/`collection_id`/`item_id`/annotations.json"
+
+### Returns
+
+A key value list of annotations. This list is loaded into local storage to display the Annotations in Mirador.
+
+### Status Codes
+
+- **200** 
+- **401** *Access denied*
+
+### Access
+
+- basic protection
+
+## Rights-Managment
 
 #### Update Owner
 
@@ -68,57 +147,3 @@ The **Item** objects contains a sequence of refereneces to **Image**-objects.
 
 > TODO
 
-----
-
-## Image
-
-### The image Object
-
-```json
-{
-    "_id": [String], // Image id
-    "file-extension": [String],
-    "path": [String], //full path to th image file in the data directory
-    "proto": "image", 
-    "owner": [String], // Username of the owner of the image, full rights
-    "meta": { //IIIF-Metadata
-        "width": [Integer]
-        "height": [Integer]
-    	"crop": {
-            "crop-width": [Integer]
-            "crop-height": [Integer]
-            "crop-x": [Integer],
-            "crop-y": [Integer],
-            "rotation": [Float]
-		}
-    },
-	"metadata": [//Annotated Metdata
-        ]
-}
-```
-
-
-
-### Basic Functions
-
-#### Get Image
-
-> [GET] api/1.0/images/`image_id`
-
-#### Add Image
-
-> [POST] api/1.0/images
-
-#### Remove Image
-
->TODO
-
-#### Update Image
-
-> TODO
-
-#### Update Crop
-
-
-
-> TODO
