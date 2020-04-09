@@ -95,7 +95,10 @@ function apiRenewToken(onSuccess,onError){
         sessionStorage["token"] = data["token"];
         onSuccess();
       },
-      error: onError,
+      error: function(){
+        onError();
+       apiLogout();
+      },
       beforeSend: function (xhr) {
           xhr.setRequestHeader ("Authorization", "Basic " +
                                 btoa(sessionStorage["token"] + ":" + ""));
@@ -202,3 +205,17 @@ function apiRemoveUser(username, onSuccess, onError){
   });
 }
 
+$(document).ready(function() {
+  if (sessionStorage.getItem("loggedIn") !== null) {
+        // check if user is allready loged in
+
+        getOwnAccountInfo(function(){}, function () {
+           apiLogout();
+        });
+    }else{
+      if(typeof loginPage === "undefined") {
+        apiLogout();
+      }
+    }
+
+});

@@ -19,6 +19,8 @@
             <input type="password" class="text-input" id ="password">
             <button class="login-button" id="login">Login</button>
              <script type="text/javascript">
+                 let loginPage=true;
+
                  function login(){
                     apiLogin($("#username").val(),$("#password").val(), function(){
                         window.location="/";
