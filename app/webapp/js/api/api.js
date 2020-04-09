@@ -59,7 +59,7 @@ function apiLogin(username, password, onSuccess, onError){
       }
   });
 }
-function getOwnAccountInfo(onSuccess){
+function getOwnAccountInfo(onSuccess, onError){
   //Get information about logged in user and store it in sessionStorage
   $.ajax
   ({
@@ -75,6 +75,9 @@ function getOwnAccountInfo(onSuccess){
       sessionStorage["change_password"] = data["change_password"];
       onSuccess();
 
+    },error: function(){
+      apiLogout();
+      onError();
     },
     beforeSend: function (xhr) {
         xhr.setRequestHeader ("Authorization", "Basic " +
@@ -209,8 +212,8 @@ $(document).ready(function() {
   if (sessionStorage.getItem("loggedIn") !== null) {
         // check if user is allready loged in
 
-        getOwnAccountInfo(function(){}, function () {
-           apiLogout();
+        getOwnAccountInfo(function(data){
+        }, function () {
         });
     }else{
       if(typeof loginPage === "undefined") {
