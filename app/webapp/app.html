@@ -25,11 +25,12 @@
         </script>
 
         <div id="viewer"></div>
+        <script src="js/lib/mirador.min.js" type="text/javascript" ></script>
 
-        <script src="js/lib/mirador.min.js"></script>
         <script type="text/javascript">
 
         var myMiradorInstance;
+
 
         function saveAnnotations(newAnnotation){
             // key
@@ -119,7 +120,7 @@
                 });
 
             }
-
+            var auth = "Basic "+ btoa(sessionStorage["token"] + ":" + "")
             myMiradorInstance = new Mirador({
                 "id": "viewer",
              "layout": "1x1",

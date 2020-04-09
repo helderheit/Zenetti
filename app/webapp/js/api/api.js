@@ -1,3 +1,5 @@
+
+
 var API_URL_PREFIX = "api/1.0/";
 
 var tokenIntervall = setInterval(renewToken, 60*1000*8);

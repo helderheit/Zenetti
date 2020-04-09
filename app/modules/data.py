@@ -6,13 +6,14 @@ from flask import Blueprint, send_from_directory, send_file, request, jsonify
 from flask_iiif.api import IIIFImageAPIWrapper
 from werkzeug.utils import secure_filename
 from modules.database import images, collections
-
+from modules.api import api
 from modules.database import items
 
 data_blueprint = Blueprint("data", __name__)
 
 
 @data_blueprint.route("/data/<collection>/<item>/<uuid>/<region>/<size>/<rotation>/<quality>", methods=["GET"])
+@api.auth.login_required
 def get_image(collection, item, uuid, region, size, rotation, quality):
     quality = quality.replace(".jpg", "")
     quality = quality.replace(".tif", "")
@@ -29,6 +30,7 @@ def get_image(collection, item, uuid, region, size, rotation, quality):
 
 
 @data_blueprint.route("/data/<collection>/<item>/<uuid>/info.json")
+@api.auth.login_required
 def get_image_info(collection, item, uuid):
     image = images.get_image(uuid)
 
@@ -87,6 +89,7 @@ def generate_image_in_manifest(collection_id, item_id, image_object):
 
 
 @data_blueprint.route("/data/<collection_id>/<item_id>")
+@api.auth.login_required
 def get_manifest(collection_id, item_id):
     item = items.get_item(item_id)
     # generate json for images
