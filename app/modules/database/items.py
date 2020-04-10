@@ -97,3 +97,14 @@ def add_image_to_item(item_id, image_id):
                     return database.server[database.DATA_DB_NAME][item_id]
                 # TODO else:
     return None
+
+
+def update_collaborators(item_id, collaborators):
+    data = database.server[database.DATA_DB_NAME][item_id]
+    if data:
+        if "proto" in data:
+            if data["proto"] == "item":
+                data["read"] = collaborators
+                database.server[database.DATA_DB_NAME][item_id] = data
+                return database.server[database.DATA_DB_NAME][item_id]
+    return None
