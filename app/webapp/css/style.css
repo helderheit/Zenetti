@@ -26,6 +26,9 @@
 .header-item > button {
     margin-top: -4px;
 }
+#system-item{
+    display: none;
+}
 
 #app-logo{
     height: 80%;

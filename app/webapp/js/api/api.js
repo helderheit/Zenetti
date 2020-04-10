@@ -73,7 +73,7 @@ function getOwnAccountInfo(onSuccess, onError){
       sessionStorage["admin"] = data["admin"];
       sessionStorage["master"] = data["master"];
       sessionStorage["change_password"] = data["change_password"];
-      onSuccess();
+      onSuccess(data);
 
     },error: function(){
       apiLogout();
@@ -213,6 +213,9 @@ $(document).ready(function() {
         // check if user is allready loged in
 
         getOwnAccountInfo(function(data){
+          if(data.admin == true){
+            $("#system-item").show();
+          }
         }, function () {
         });
     }else{
