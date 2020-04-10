@@ -109,7 +109,7 @@ def get_annotations(collection_id, item_id):
                              item_id + "/" + image_id + ".json"] = image["annotations"]
     return jsonify(annotations_json), 200
 
-# TODO passowrd protect
+
 @api.api_blueprint.route("/users/<user_id>/items")
 @api.auth.login_required
 def get_items_for_user(user_id):
@@ -118,8 +118,23 @@ def get_items_for_user(user_id):
         item_list = []
         for collection in all_collections:
             for item_id in collection["items"]:
-                if items.get_item(item_id)["owner"] == user_id:
-                    item_list.append({"item_id":item_id, "collection_id":collection["_id"]})
+                item = items.get_item(item_id)
+                if item["owner"] == user_id or user_id in item["read"]:
+                    item_list.append({"item_id": item_id, "collection_id": collection["_id"]})
         return jsonify({"items": item_list}), 200
     else:
         return 401
+
+
+@api.api_blueprint.route("items/<item_id>/collaborators", methods=["PUT"])
+@api.auth.login_required
+def update_item_collaborators(item_id):
+    """update the collaborators of the item"""
+
+    data = request.json
+
+    success = items.update_collaborators(item_id, data)
+    if success:
+        return jsonify(success), 200
+    else:
+        return jsonify({"error": "Could not update collaborators " + item_id}), 409

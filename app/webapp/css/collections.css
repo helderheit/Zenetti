@@ -97,3 +97,26 @@ input[type="file"] {
     height: 180px;
 
 }
+
+.collaborator-grid{
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.collaborator-label{
+    border: 1px solid var(--theme);
+    border-radius: 2px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.remove-label-button {
+    border: none;
+    padding: 0 10px;
+    padding-right: 0px;
+
+
+    color: var(--theme);
+
+
+}

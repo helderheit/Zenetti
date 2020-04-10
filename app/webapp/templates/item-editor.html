@@ -14,6 +14,12 @@
 
                      </div>
                      <button id="add-annotation-button">Add Annotation</button>
+                      <div class="editor-label">Collaborators</div>
+                     <div class="collaborator-grid" id ="collaborator-grid">
+
+                     </div>
+                     <button id="add-collaborator-button">Add Collaborator</button>
+
                      <div class="editor-button">
                          <button id="save-item-button">Save</button>
                          <button id="cancel-button">Cancel</button>
@@ -23,9 +29,29 @@
         </div>
 
         <script type="text/javascript">
+
+
              var itemEditorId = "%item-editor-id%";
              var annotationsCounter = 0;
+             var collaboratorCounter = 0;
+             var collaboratorList = [];
 
+             function addCollaborator(name){
+                 $("#collaborator-grid").append("<span class='collaborator-label' name='"+name+"' id='collaborator-label-"+collaboratorCounter.toString()+"'>"+
+                             name+"<button class='remove-label-button' id='remove-collaborator-button-"+collaboratorCounter.toString()+"'>&#9587;</button></span>");
+                 var localCounter = collaboratorCounter;
+                 $("#remove-collaborator-button-"+collaboratorCounter.toString()).on("click", function(){
+                    var collaboratorName = $("#collaborator-label-"+localCounter.toString()).attr("name");
+                    var index = collaboratorList.indexOf(collaboratorName);
+                    if (index !== -1) collaboratorList.splice(index, 1);
+                    $("#collaborator-label-"+localCounter.toString()).remove();
+                    console.log(collaboratorList);
+                 });
+                 collaboratorCounter++;
+
+
+
+             }
              //Load data if itemEditorId is not empty
              if(itemEditorId !==""){
                  apiGetItem(itemEditorId,function (item){
@@ -36,16 +62,33 @@
 
                      for(var i in item["metadata"]){
                          console.log(item["metadata"][i]["label"]);
-                          $("#annotation-grid").append("<input id='annotation-label-"+annotationsCounter.toString()+"' placeholder='label' style='margin-bottom: 10px; margin-right: 10px' value='"+
+                          $("#annotation-grid").append("<input id='annotation-label-"+annotationsCounter.toString()+"' placeholder='label' disabled='true' style='margin-bottom: 10px; margin-right: 10px' value='"+
                               item["metadata"][i]["label"]+"'><input id='annotation-value-"+annotationsCounter.toString()+"' placeholder='value' value='"+
                               item["metadata"][i]["value"]+"'>");
                             annotationsCounter++;
                      }
+                     collaboratorList = item["read"]
+                     for(var i in item["read"]){
+                        addCollaborator(item["read"][i]);
 
+                     }
+                    $("#collaborator-grid").append("<input type='text' id='collaborator-input'>");
                  }, function () {
+
 
                  });
              }
+
+             $("#add-collaborator-button").on("click", function(){
+                     var newCollaborator = $("#collaborator-input").val();
+                     if(newCollaborator !== "") {
+                         $("#collaborator-input").remove();
+                            addCollaborator(newCollaborator);
+                         collaboratorCounter++
+                         $("#collaborator-grid").append("<input type='text' id='collaborator-input'>");
+                         collaboratorList.push(newCollaborator);
+                     }
+             });
 
 
              //Cancel Action
@@ -91,8 +134,12 @@
                 }else{
                      apiUpdateItem(itemEditorId, metadataObject,
                         function () {
+                           apiUpdateItemCollaborators(itemEditorId, collaboratorList, function(){
                             $("#item-editor").remove();
                             update();
+                            }, function () {
+
+                           });
                         },
                         function () {
                         })

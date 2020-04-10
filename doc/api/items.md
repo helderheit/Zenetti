@@ -133,15 +133,48 @@ A key value list of annotations. This list is loaded into local storage to displ
 
 - basic protection
 
+
+
+## Get items for user
+
+Get a list of all items a user owns or collaborates with
+
+> [GET] api/1.0/users/`user_id`/items
+
+### Returns
+
+```
+{
+	"items": [
+		{
+		"collection_id": [String],
+		"item_id": [String]
+		}
+	]
+}
+```
+
+### Status Codes
+
+- **200** 
+- **401** *Access denied*
+
+### Access
+
+- basic protection
+- can only be accessed by the user
+
+
+
 ## Rights-Managment
 
 #### Update Owner
 
 >TODO
 
-#### Add Contributor
+#### Add Collaborator
 
-> TODO
+> [POST] api/1.0/users/`user_id`/items
 
 #### Remove Contributor
 
