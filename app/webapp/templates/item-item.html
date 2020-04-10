@@ -10,9 +10,10 @@
         </div>
         <div class="item-description" id="item-description-%item-id%"></div>
         <div class="item-number" id="item-number-%item-id%">n/a Images</div>
-        <div class="item-logo"><img src="" id="item-logo-%item-id%"></div>
         <div class="item-attribution" id="item-attribution-%item-id%"></div>
-        <div class="item-owner-label" id="item-owner-%item-id%">&#x1F464;</div> <div class="item-owner"></div>
+        <div class="item-logo"><img src="" id="item-logo-%item-id%"></div>
+
+        <div class="item-owner-label" ><img src="../im_data/user-icon.png"></div> <div class="item-owner" id="item-owner-%item-id%"></div>
     </div>
 </div>
 <script type="text/javascript">
@@ -25,6 +26,7 @@
             $("#item-attribution-" + itemId).html(item["meta"]["attribution"]);
             $("#item-logo-" + itemId).attr("src",(item["meta"]["logo"]));
             $("#item-number-" + itemId).html(item["images"].length.toString() +" Images");
+            $("#item-owner-" + itemId).html(item["owner"]);
 
         }, function () {
 

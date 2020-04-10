@@ -60,6 +60,7 @@
                         item = replaceParameter(item, "%collection-attribution%",collections[collections_i]["meta"]["attribution"]);
                         item = replaceParameter(item, "%collection-logo-url%",collections[collections_i]["meta"]["logo"]);
                         item = replaceParameter(item, "%collection-number%",collections[collections_i]["items"].length.toString());
+                        item = replaceParameter(item, "%collection-owner%",collections[collections_i]["owner"]);
 
 
                         $("#collection-cards").append(item);

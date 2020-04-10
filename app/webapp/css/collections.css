@@ -31,9 +31,35 @@
     width: 100px;
 }
 .collection-description, .item-description{
-    padding: 10px;
+    padding: 20px 5px;
+}
+ .collection-number, .collection-logo, .collection-attribution, .item-number, .item-logo, .item-attribution{
+     padding: 5px;
+ }
+.collection-attribution, .item-attribution{
+    width: 50%;
+    height: 50px;
 }
 
+ .collection-logo, .item-logo{
+     float:right;
+     text-align: center;
+     width: 50%;
+     margin-top: -80px;
+ }
+ .collection-owner-label, .item-owner-label{
+     height: 40px;
+     padding: 0px 5px;
+     margin-top: -10px;
+     text-align: center;
+ }
+ .collection-owner-label > img, .item-owner-label > img{
+    height: 100%;
+ }
+ .collection-owner, .item-owner{
+     text-align: center;
+     padding: 5px;
+ }
 .dropzone{
     border: 1px solid var(--light-accent);
     width: 100%;
