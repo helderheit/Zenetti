@@ -8,6 +8,7 @@ from modules.api.api import check_attributes
 @api.auth.login_required
 def get_collections():
     """get a list of collections from the database"""
+    # TODO for development purpose only
     data = collections.get_collections()
     if data:
         return jsonify(data), 200

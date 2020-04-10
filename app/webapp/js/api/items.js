@@ -129,3 +129,22 @@ function apiUpdateAnnotations(imageId, annotations, onSuccess, onError){
             }
         });
 }
+function apiGetItemsForUser(onSuccess, onError){
+  // Get all items for a user from the api and hand it over to onSuccess Callback
+    userId = sessionStorage["username"]
+    $.ajax
+    ({
+      type: "GET",
+      url: API_URL_PREFIX+"users/"+userId+"/items",
+      contentType : 'application/json',
+      async: true,
+      success: function(data){
+        onSuccess(data);
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}

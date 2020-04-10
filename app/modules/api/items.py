@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, g
 from modules.api import api
 
 from modules.database import items
@@ -108,3 +108,18 @@ def get_annotations(collection_id, item_id):
             annotations_json["http://localhost:4000/data/" + collection_id + "/" +
                              item_id + "/" + image_id + ".json"] = image["annotations"]
     return jsonify(annotations_json), 200
+
+# TODO passowrd protect
+@api.api_blueprint.route("/users/<user_id>/items")
+@api.auth.login_required
+def get_items_for_user(user_id):
+    if user_id == g.user.username:
+        all_collections = collections.get_collections()
+        item_list = []
+        for collection in all_collections:
+            for item_id in collection["items"]:
+                if items.get_item(item_id)["owner"] == user_id:
+                    item_list.append({"item_id":item_id, "collection_id":collection["_id"]})
+        return jsonify({"items": item_list}), 200
+    else:
+        return 401

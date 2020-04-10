@@ -9,6 +9,8 @@ from modules.api import api
 
 from modules.database import items
 from modules.database import images
+from modules.database import collections
+
 
 
 @api.api_blueprint.route("/<item_id>/annotations_plain.json")

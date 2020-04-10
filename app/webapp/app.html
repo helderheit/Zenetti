@@ -100,16 +100,15 @@
         }
         */
 
-        var collectionId = 'e6627838-007f-403f-9abb-cf34fb615dad';
-        apiGetCollection(collectionId, function(collection){
+        apiGetItemsForUser(function(items){
             var manifestUris = []
-            for(var i in collection["items"]){
+            for(var i in items["items"]){
 
                 manifestUris.push(
-                 { "manifestUri": "http://localhost:4000/data/"+collectionId+"/"+collection["items"][i], "location": "University of Regensburg"}
+                 { "manifestUri": "http://localhost:4000/data/"+items["items"][i]["collection_id"]+"/"+items["items"][i]["item_id"], "location": "University of Regensburg"}
                 );
                 //load annotations to local storage
-                apiGetAnnotations(collectionId, collection["items"][i], function(annotationsData){
+                apiGetAnnotations(items["items"][i]["collection_id"], items["items"][i]["item_id"], function(annotationsData){
                     console.log(annotationsData);
                     for(var key in annotationsData){
 
