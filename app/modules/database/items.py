@@ -4,13 +4,13 @@ from modules.api import api
 from modules.database import database
 
 
-def add_item(label, description, attribution, logo, metadata):
+def add_item(label, description, attribution, logo, metadata, username):
     try:
 
         item_id = str(uuid.uuid4())
         database.server[database.DATA_DB_NAME][item_id] = {"_id": item_id,
                                                            "proto": "item",
-                                                           "owner": "master",
+                                                           "owner": username,
                                                            "read": [],
                                                            "annotate": [],
                                                            "edit": [],

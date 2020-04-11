@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify,g
 from modules.api import api
 from modules.database import collections
 from modules.api.api import check_attributes
@@ -40,7 +40,7 @@ def add_collection():
     success = collections.add_collection(data["label"],
                                          data["description"],
                                          data["attribution"],
-                                         data["logo"])
+                                         data["logo"], g.user.username)
     if success:
         return jsonify(success), 200
     else:

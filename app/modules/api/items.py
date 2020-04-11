@@ -52,7 +52,7 @@ def add_item(collection_id):
     success = items.add_item(data["label"],
                              data["description"],
                              data["attribution"],
-                             data["logo"], metadata)
+                             data["logo"], metadata, g.user.username)
     if success:
         collections.add_item_to_collection(collection_id, success["_id"])
         return jsonify(success), 200

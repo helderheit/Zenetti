@@ -22,12 +22,12 @@ def get_collection(collection_id):
     return None
 
 
-def add_collection(label, description, attribution, logo):
+def add_collection(label, description, attribution, logo, username):
     data_id = str(uuid.uuid4())
     data = {
         "_id": data_id,
         "proto": "collection",
-        "owner": "master",
+        "owner": username,
         "items": [],
         "meta": {
             "attribution": attribution,
