@@ -117,6 +117,27 @@ input[type="file"] {
 
 
     color: var(--theme);
+}
 
+.image-item{
+    border-left: 3px solid var(--theme);
+    margin-bottom: 5px;
+    background: white;
+}
+.image-item >img {
+    height: 100px;
+}
+.image-item > div {
+    width: 50%;
+    float: right;
+    padding: 40px;
+}
+.remove-image-button{
+    float: right;
+}
 
+#collection-link{
+    color: var(--dark);
+    
+    line-height: 2;
 }

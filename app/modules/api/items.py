@@ -138,3 +138,17 @@ def update_item_collaborators(item_id):
         return jsonify(success), 200
     else:
         return jsonify({"error": "Could not update collaborators " + item_id}), 409
+
+
+@api.api_blueprint.route("items/<item_id>/images", methods=["PUT"])
+@api.auth.login_required
+def update_item_imagess(item_id):
+    """update the images of the item"""
+
+    data = request.json
+
+    success = items.update_images(item_id, data)
+    if success:
+        return jsonify(success), 200
+    else:
+        return jsonify({"error": "Could not update images " + item_id}), 409

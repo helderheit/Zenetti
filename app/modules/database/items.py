@@ -108,3 +108,14 @@ def update_collaborators(item_id, collaborators):
                 database.server[database.DATA_DB_NAME][item_id] = data
                 return database.server[database.DATA_DB_NAME][item_id]
     return None
+
+
+def update_images(item_id, images):
+    data = database.server[database.DATA_DB_NAME][item_id]
+    if data:
+        if "proto" in data:
+            if data["proto"] == "item":
+                data["images"] = images
+                database.server[database.DATA_DB_NAME][item_id] = data
+                return database.server[database.DATA_DB_NAME][item_id]
+    return None

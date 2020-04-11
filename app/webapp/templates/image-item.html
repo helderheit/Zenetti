@@ -1,0 +1,9 @@
+<div class="image-item border" name="%image-name%" id="image-item-%image-name%">
+    <img src="%image-url%"><button class="remove-image-button" id="remove-image-button-%image-name%">Remove</button><div>%image-name%</div>
+    <script>
+        var imageId = "%image-id%"
+        $("#remove-image-button-%image-name%").on("click", function(){
+            $("#image-item-%image-name%").remove();
+        });
+    </script>
+</div>

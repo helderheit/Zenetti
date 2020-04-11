@@ -169,3 +169,23 @@ function apiUpdateItemCollaborators(itemId, data, onSuccess, onError){
       }
   });
 }
+
+function apiUpdateItemImages(itemId, data, onSuccess, onError){
+  // Update a the list of images
+    $.ajax
+    ({
+      type: "PUT",
+      url: API_URL_PREFIX+"items/"+itemId+"/images",
+      contentType : 'application/json',
+      async: true,
+      data:JSON.stringify(data),
+      success: function(){
+        onSuccess();
+      },
+      error: onError,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " +
+                                btoa(sessionStorage["token"] + ":" + ""));
+      }
+  });
+}
