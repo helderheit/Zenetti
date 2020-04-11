@@ -26,7 +26,7 @@
 .header-item > button {
     margin-top: -4px;
 }
-#system-item{
+#system-item, #collections-item{
     display: none;
 }
 

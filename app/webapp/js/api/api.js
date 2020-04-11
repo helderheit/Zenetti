@@ -215,6 +215,8 @@ $(document).ready(function() {
         getOwnAccountInfo(function(data){
           if(data.admin == true){
             $("#system-item").show();
+            $("#collections-item").show();
+
           }
         }, function () {
         });
