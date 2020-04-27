@@ -41,6 +41,14 @@ numpy
 
 opencv-python
 
+
+
+### Docker Container
+
+>docker build -t zenetti .
+
+> docker run -d --name zenetti1 -p 4000:4000 -p 5984:5984 -v c:/data:/app/webapp/data --net=host zenetti 
+
 ## Updates
 
 

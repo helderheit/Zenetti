@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-import modules.config as config
+from modules import config
 
 CONFIG_PATH = "config/app.conf"
 
