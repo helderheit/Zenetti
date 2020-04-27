@@ -33,8 +33,11 @@ ext.init_restful(api)
 #load functions serving the images
 app.register_blueprint(data_blueprint)
 
+#initialise database
+database.initialize()
+
 if __name__ == "__main__":
     port = 4000
     host = "0.0.0.0"
-    database.initialize()
+
     app.run(port=port, host=host, debug=False, threaded=True)
