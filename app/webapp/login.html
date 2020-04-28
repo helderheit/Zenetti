@@ -16,6 +16,7 @@
             <div class="login-header">
                 <img class="login-logo" src="im_data/Zenetti_logo_sized_colored.svg" alt="Logo">
                 <h1>Zenetti</h1>
+                <p id="version"></p>
             </div>
             <div>Username</div>
             <input type="text" class="text-input" id ="username">
@@ -37,6 +38,9 @@
                     if (e.which == 13) {
                         login();
                     }});
+                apiGetInfo(function(info){
+                    $("#version").html(info["version"]);
+                });
              </script>
         </div>
     </div>

@@ -24,7 +24,7 @@ def get_api_info():
     """
         return information about the api and the server
     """
-    res = {"zenetti": "api", "version": "1.0"}
+    res = {"zenetti": "api", "version": config.APP_VERSION}
     return jsonify(res)
 
 
