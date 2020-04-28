@@ -9,6 +9,8 @@ from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer,
 
 from modules.database import users
 
+from modules import config
+
 api_blueprint = Blueprint("api", __name__)
 
 auth = HTTPBasicAuth()
@@ -31,7 +33,7 @@ def get_api_info():
 def get_auth_token():
     """returns a token"""
     token = g.user.generate_auth_token()
-    return jsonify({"token": token.decode("utf-8")})
+    return jsonify({"token": token.decode("utf-8"), "host":config.host})
 
 
 @auth.verify_password

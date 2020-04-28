@@ -46,6 +46,7 @@ function apiLogin(username, password, onSuccess, onError){
       async: true,
 
       success: function(data){
+        sessionStorage["host"] = data["host"];
         sessionStorage["loggedIn"] = true;
         sessionStorage["token"] = data["token"];
         sessionStorage["username"] = username;
@@ -69,6 +70,7 @@ function getOwnAccountInfo(onSuccess, onError){
     async: true,
 
     success: function(data){
+      sessionStorage["host"] = data["host"];
       sessionStorage["name"] = data["name"];
       sessionStorage["admin"] = data["admin"];
       sessionStorage["master"] = data["master"];

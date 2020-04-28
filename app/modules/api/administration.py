@@ -3,6 +3,8 @@ from modules.api import api
 
 from modules.database import users
 
+from modules import config
+
 
 @api.api_blueprint.route("users", methods=["POST"])
 @api.auth.login_required
@@ -106,7 +108,9 @@ def get_user(username):
     if g.user.admin or g.user.username == username:
         user = users.get_user(username)
         if user:
-            return jsonify(user.to_dict()), 200
+            user = user.to_dict()
+            user["host"]= config.host
+            return jsonify(user), 200
         else:
             return jsonify({"error": "Could get user"}), 409
     else:

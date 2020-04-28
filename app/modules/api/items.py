@@ -7,6 +7,8 @@ from modules.database import images
 
 from modules.api.api import check_attributes
 
+from modules import config
+
 
 @api.api_blueprint.route("items", methods=["GET"])
 @api.auth.login_required
@@ -121,7 +123,7 @@ def get_items_for_user(user_id):
                 item = items.get_item(item_id)
                 if item["owner"] == user_id or user_id in item["read"]:
                     item_list.append({"item_id": item_id, "collection_id": collection["_id"]})
-        return jsonify({"items": item_list}), 200
+        return jsonify({"items": item_list, "host": config.host }), 200
     else:
         return 401
 
