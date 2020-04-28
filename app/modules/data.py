@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """methods serving the IIIF api"""
-import os
-
+from os import path
 from flask import Blueprint, send_from_directory, send_file, request, jsonify
 from flask_iiif.api import IIIFImageAPIWrapper
 from werkzeug.utils import secure_filename
@@ -20,7 +19,14 @@ def get_image(collection, item, uuid, region, size, rotation, quality):
     quality = quality.replace(".tif", "")
     quality = quality.replace(".png", "")
     file_extension = images.get_image(uuid)["file-extension"]
-    image = IIIFImageAPIWrapper.from_file("webapp/data/" + collection + "/" + item + "/" + uuid + "."+file_extension)
+
+    image_path = "webapp/data/" + collection + "/" + item + "/" + uuid + "."+file_extension
+    # check if file exists
+    if path.exists(image_path):
+        print("image file found")
+    else:
+        print("image file not found")
+    image = IIIFImageAPIWrapper.open_image(image_path)
     image.apply_api(
         region=region,
         size=size,
