@@ -20,6 +20,13 @@ try:
 except:
     pass
 
+print("creating data dir...")
+try:
+    os.mkdir("app/webapp/data")
+    os.mkdir("app/webapp/data/database")
+
+except:
+    pass
 config = {
     "host": hostname,
     "master_username": master_username,

@@ -6,7 +6,7 @@ from modules import config
 CONFIG_PATH = "config/app.conf"
 
 
-APP_VERSION = "0.2.5"
+APP_VERSION = "0.3.0"
 master_username = ""
 master_password = ""
 host = ""

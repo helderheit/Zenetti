@@ -1,3 +1,5 @@
+import os
+
 from flask import request, jsonify,g
 from modules.api import api
 from modules.database import collections
@@ -75,6 +77,15 @@ def update_collection(collection_id):
 def remove_collection(collection_id):
     """remove a collection from the database"""
     success = collections.remove_collection(collection_id)
+    try:
+        for item_id in os.listdir("webapp/data/" + collection_id):
+            for f in os.listdir("webapp/data/" + collection_id + "/" + item_id):
+                os.remove(os.path.join("webapp/data/" + collection_id + "/" + item_id, f))
+            os.rmdir("webapp/data/" + collection_id + "/" + item_id)
+        os.rmdir("webapp/data/" + collection_id)
+
+    except:
+        print("Could not remove files")
     if success:
         return jsonify({"ok": "Removed collection " + collection_id}), 200
     else:

@@ -1,4 +1,6 @@
 # users and administration
+import os
+
 from modules.api import api
 from modules.database import database
 
@@ -16,8 +18,9 @@ def add_user(username, name, password, admin=False, change_password=False):
     try:
         user = api.User()
         user.hash_password(password)
-        database.server[database.USER_DB_NAME][username] = {"username": username, "name": name, "password": user.password_hash,
-                                     "admin": admin, "master": False, "change_password": change_password}
+
+        database.store_item(database.USER_DB_NAME,username,{"username": username, "name": name, "password": user.password_hash,
+                                     "admin": admin, "master": False, "change_password": change_password})
         print("Added user " + username + " to database")
         return True
     except Exception as e:
@@ -32,7 +35,7 @@ def remove_user(username):
             username -- username
     """
     try:
-        del database.server[database.USER_DB_NAME][username]
+        database.remove_item(database.USER_DB_NAME, username)
         print("Removed user " + username + " from database")
         return True
     except Exception as e:
@@ -52,7 +55,7 @@ def update_user(username, name, password, admin=False, change_password=False):
         change_password -- if true, user must change password on next login
     """
     try:
-        data = database.server[database.USER_DB_NAME][username]
+        data = database.load_item(database.USER_DB_NAME, username)
         if password != "":
             user = api.User()
             user.hash_password(password)
@@ -60,7 +63,7 @@ def update_user(username, name, password, admin=False, change_password=False):
         data["name"] = name
         data["admin"] = admin
         data["change_password"] = change_password
-        database.server[database.USER_DB_NAME][username] = data
+        database.update_item(database.USER_DB_NAME, username, data)
         print("Updated user " + username)
         return True
     except Exception as e:
@@ -71,7 +74,7 @@ def update_user(username, name, password, admin=False, change_password=False):
 def get_user(username):
     """get a user from the database, return a User Object, returns None if user is not found"""
     try:
-        data = database.server[database.USER_DB_NAME][username]
+        data = database.load_item(database.USER_DB_NAME, username)
         name = data["name"]
         password = data["password"]
         admin = data["admin"]
@@ -91,11 +94,9 @@ def get_users():
     """get a list of users from the database, return a list of dicts"""
     try:
         user_list = []
-        for user in database.server[database.USER_DB_NAME]:
-            data = database.server[database.USER_DB_NAME][user]
+        for username in database.get_index(database.USER_DB_NAME):
+            data = database.load_item(database.USER_DB_NAME, username)
             del data["password"]
-            del data["_id"]
-            del data["_rev"]
             user_list.append(data)
         return user_list
 

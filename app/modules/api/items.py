@@ -1,3 +1,5 @@
+import os
+
 from flask import request, jsonify, g
 from modules.api import api
 
@@ -68,6 +70,13 @@ def remove_item(collection_id, item_id):
     """remove a item from the database"""
     success = items.remove_item(item_id)
     collections.remove_item_from_collection(collection_id, item_id)
+    try:
+        for f in os.listdir("webapp/data/" + collection_id + "/" + item_id):
+            os.remove(os.path.join("webapp/data/" + collection_id + "/" + item_id, f))
+        os.rmdir("webapp/data/" + collection_id + "/" + item_id)
+
+    except:
+        print("Could not remove files")
     if success:
         return jsonify({"ok": "Removed item " + item_id}), 200
     else:
