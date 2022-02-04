@@ -40,8 +40,6 @@ flask-iiif
 
 passlib
 
-couchDB
-
 numpy
 
 opencv-python

@@ -7,7 +7,6 @@ from datetime import datetime
 import json
 import uuid
 
-from couchdb import Server
 from modules.database import database, users
 from modules.api import api
 from modules import config
@@ -21,19 +20,12 @@ IMAGES_DB_NAME = "zenetti_images"
 
 database_names = [USER_DB_NAME, COLLECTIONS_DB_NAME,ITEMS_DB_NAME, IMAGES_DB_NAME]
 
-#database_url = "http://127.0.0.1:5984"
-
-#DATA_PATH = ""
 
 
 def initialize():
     """connect to couchDB"""
     try:
-        #database.server = Server(
-        #    database_url)
-        #server.version_info()
-        #print("Connected to database-server " + str(database.server))
-
+  
         for database_name in database_names:
             if os.path.isdir(os.path.join("webapp/data/database/" + database_name)):
                 pass
