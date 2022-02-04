@@ -23,6 +23,11 @@ The Container `tiangolo/uwsgi-nginx-flask` Provides an NGINX-Server and Python w
 
 ```
 
+### CouchDB in Docker
+**Important**: Zenetti is not Compatible with CouchDB 3.x a the moment.
+
+> docker run -d --restart always -v path/to/local/storage:/opt/couchdb/data --name couchdb --net=host couchdb:2.3
+
 ## Build Process
 
 ### Required Packages
@@ -45,9 +50,13 @@ opencv-python
 
 ### Docker Container
 
->docker build -t zenetti .
+In the project directory
 
-> docker run -d --name zenetti1 -p 4000:4000 -p 5984:5984 -v c:/data:/app/webapp/data --net=host zenetti 
+> docker build -t zenetti .
+
+> docker run -d --name zenetti1  -v path/to/local/storage:/app/webapp/data --net=host zenetti 
+
+
 
 ## Updates
 

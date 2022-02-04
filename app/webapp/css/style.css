@@ -204,7 +204,6 @@ input, select, textarea{
     font-size: 16px;
     height: 30px;
             box-sizing: border-box;
-
 }
 
 input:hover, input:focus{
